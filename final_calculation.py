@@ -5,9 +5,9 @@
 
 import sqlite3
 import matplotlib.pyplot as plt
-from pokemon_calculation.py import calculate_pokemon_creatures_per_year
-from digimon_calculation.py import calculate_digimon_creatures_per_year
-from yugioh_calculation.py import calculate_yugioh_creatures_per_year
+from pokemon_calculation import calculate_pokemon_creatures_per_year
+from digimon_calculation import calculate_digimon_creatures_per_year
+from yugioh_calculation import calculate_yugioh_creatures_per_year
 import math
 
 
