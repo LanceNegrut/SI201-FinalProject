@@ -1,7 +1,9 @@
 # Lance
 
 import requests
+import sqlite3
 import json
+import os
 
 
 def get_api_key(filename):
