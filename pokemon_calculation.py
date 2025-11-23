@@ -3,7 +3,7 @@
 # Brandon
 import sqlite3
 import os 
-from pokemon_collection import file_path
+from pokemon_collection import defualt 
 from collections import defaultdict
 import matplotlib.pyplot as plt
 
