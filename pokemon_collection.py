@@ -86,7 +86,7 @@ def read_data_from_file(filename):
     return json_data
 
 
-def set_up_supertype_table(data, cur, conn):
+def set_up_supertypes_table(data, cur, conn):
     """
     Sets up the Supertype table in the database using the provided data.
 
