@@ -1,1 +1,4 @@
 # Lance
+
+def main():
+    pass
