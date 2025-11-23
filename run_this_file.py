@@ -1,6 +1,11 @@
 # Lance
 
-
+import pokemon_collection
+import pokemon_calculation
+import yugioh_collection
+import yugioh_calculation
+import digimon_collection
+import digimon_calculation
 import sqlite3
 import os
 
