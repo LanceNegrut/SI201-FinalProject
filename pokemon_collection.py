@@ -17,11 +17,28 @@ def get_api_key(filename):
     except:
         print(f"Error: The file '{filename}' was not found.")
         return None
-    
+
+
 API_KEY = get_api_key("pokemon_api_key.txt")
 
+
 def load_json(filename):
-    pass
+    '''
+    opens file file, loads content as json object
+
+    ARGUMENTS: 
+        filename: name of file to be opened
+
+    RETURNS: 
+        json dictionary OR an empty dict if the file could not be opened 
+    '''
+    
+    try:
+        with open(filename, 'r') as f:
+            return json.load(f)
+    except:
+        return {}
+
 
 def create_cache(dict, filename):
     pass
