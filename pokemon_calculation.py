@@ -2,9 +2,10 @@
 
 # Brandon
 import sqlite3
-from {File} import {filename}
+import os 
+from pokemon_collection import file_path
+from collections import defaultdict
 import matplotlib.pyplot as plt
-
 
 def calculate_pokemon_creatures_per_year(conn):
 
