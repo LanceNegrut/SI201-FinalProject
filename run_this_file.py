@@ -27,7 +27,7 @@ def set_up_database(db_name):
 def main():
     set_up_database("tcg_data")
     pokemon_collection.read_data_from_file()
-    pokemon_collection.set_up_supertype_table(json_data, cur, conn)
+    pokemon_collection.set_up_supertypes_table(json_data, cur, conn)
     conn.close()
 
 
