@@ -86,14 +86,14 @@ def read_data_from_file(filename):
     return json_data
 
 
-def set_up_types_table(data, cur, conn):
+def set_up_supertype_table(data, cur, conn):
     """
-    Sets up the Types table in the database using the provided Pokemon data.
+    Sets up the Supertype table in the database using the provided data.
 
     Parameters
     -----------------------
     data: list
-        List of Pokemon data in JSON format.
+        List of data in JSON format.
 
     cur: Cursor
         The database cursor object.
@@ -105,21 +105,17 @@ def set_up_types_table(data, cur, conn):
     -----------------------
     None
     """
-    type_list = []
+    supertype_list = []
     for pokemon in data:
-        pokemon_type = pokemon["type"][0]
-        if pokemon_type not in type_list:
-            type_list.append(pokemon_type)
-        if len(pokemon["type"]) > 1:
-            pokemon_type = pokemon["type"][1]
-            if pokemon_type not in type_list:
-                type_list.append(pokemon_type)
+        pokemon_supertype = pokemon["supertype"][0]
+        if pokemon_supertype not in supertype_list:
+            supertype_list.append(pokemon_supertype)
     cur.execute(
-        "CREATE TABLE IF NOT EXISTS Types (id INTEGER PRIMARY KEY, type TEXT UNIQUE)"
+        "CREATE TABLE IF NOT EXISTS Pokemon_Supertypes (id INTEGER PRIMARY KEY, supertype TEXT UNIQUE)"
     )
-    for i in range(len(type_list)):
+    for i in range(len(supertype_list)):
         cur.execute(
-            "INSERT OR IGNORE INTO Types (id,type) VALUES (?,?)", (i,
-                                                                   type_list[i])
+            "INSERT OR IGNORE INTO Pokemon_Supertypes (id,supertype) VALUES (?,?)", (i,
+                                                                   supertype_list[i])
         )
     conn.commit()
