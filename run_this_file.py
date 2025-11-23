@@ -1,6 +1,10 @@
 # Lance
 
 
+import sqlite3
+import os
+
+
 def set_up_database(db_name):
     """
     Sets up a SQLite database connection and cursor.
