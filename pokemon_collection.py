@@ -45,7 +45,22 @@ def load_json(filename):
 
 
 def create_cache(dict, filename):
-    pass
+    '''
+    Encodes dictonary into JSON format and writes
+    the JSON to filename to save the search results
+
+    ARGUMENTS: 
+        filename: the name of the file to write a cache to
+        dict: cache dictionary
+
+    RETURNS: 
+        None
+    '''
+
+    with open(filename, 'w') as f:
+        json.dump(dict, f, indent=4) 
+    return None
+
 
 def create_pokemon_table(db_name):
     pass
