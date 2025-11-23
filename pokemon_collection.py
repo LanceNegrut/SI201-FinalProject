@@ -1,5 +1,9 @@
 # Lance
 
+import requests
+import json
+
+
 def get_api_key(filename):
     '''
     loads in API key from file 
