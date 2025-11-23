@@ -17,6 +17,8 @@ def get_api_key(filename):
     except:
         print(f"Error: The file '{filename}' was not found.")
         return None
+    
+API_KEY = get_api_key("pokemon_api_key.txt")
 
 def load_json(filename):
     pass
