@@ -86,26 +86,6 @@ def read_data_from_file(filename):
     return json_data
 
 
-def set_up_database(db_name):
-    """
-    Sets up a SQLite database connection and cursor.
-
-    Parameters
-    -----------------------
-    db_name: str
-        The name of the SQLite database.
-
-    Returns
-    -----------------------
-    Tuple (Cursor, Connection):
-        A tuple containing the database cursor and connection objects.
-    """
-    path = os.path.dirname(os.path.abspath(__file__))
-    conn = sqlite3.connect(path + "/" + db_name)
-    cur = conn.cursor()
-    return cur, conn
-
-
 def set_up_types_table(data, cur, conn):
     """
     Sets up the Types table in the database using the provided Pokemon data.
