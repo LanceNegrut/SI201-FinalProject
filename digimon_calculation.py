@@ -3,6 +3,7 @@
 # Brandon
 
 import sqlite3
+from collections import defaultdict
 import matplotlib.pyplot as plt
 
 

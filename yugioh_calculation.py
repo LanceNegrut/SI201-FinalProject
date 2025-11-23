@@ -1,6 +1,8 @@
 #DOUBLE CHECK THIS FILE TASK IS FOR YOU "CALCULATION"
 
-
+import sqlite3
+from collections import defaultdict
+import matplotlib.pyplot as plt
 
 def calculate_yugioh_creatures_per_year(conn):
     """
