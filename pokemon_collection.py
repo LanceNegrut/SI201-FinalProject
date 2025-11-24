@@ -30,7 +30,7 @@ API_KEY = get_api_key("pokemon_api_key.txt")
 
 def load_json(filename):
     '''
-    opens file file, loads content as json object
+    opens file, loads content as json object
 
     ARGUMENTS: 
         filename: name of file to be opened
