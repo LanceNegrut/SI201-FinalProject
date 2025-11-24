@@ -31,8 +31,11 @@ def set_up_database(db_name):
 
 def main():
     set_up_database("tcg_data")
-    pokemon_collection.read_data_from_file()
-    pokemon_collection.set_up_supertypes_table(json_data, cur, conn)
+    API_KEY = pokemon_collection.get_api_key("pokemon_api_key.txt")
+    pokemon_collection.load_json(filename)
+    pokemon_collection.create_cache(filename)
+    pokemon_collection.read_data_from_file(filename)
+    pokemon_collection.set_up_supertypes_table(json_data, "tcg_data", conn)
     conn.close()
 
 
