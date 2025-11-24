@@ -37,3 +37,16 @@ def calculate_pokemon_creatures_per_year(conn):
             year_counts[year] += count
     
     return dict(year_counts)
+
+# Create a bar chart to visualize the data 
+
+def create_histogram(data, title, xlabel, ylable):
+    years = list(data.keys())
+    counts = list(data.values())
+    plt.bar(years, counts)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylable)
+    plt.show()
+
+    return None 
