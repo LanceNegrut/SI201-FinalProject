@@ -26,7 +26,15 @@ def joining_tables(cur):
     yugio_data = calculate_yugioh_creatures_per_year(cur)
     digimon_data = calculate_digimon_creatures_per_year(cur)
 
-    all_year = set(pokemon_data.)
+    all_year = set(pokemon_data.keys()), set(yugio_data.keys()), set(digimon_data.keys())
+
+    return all_year
+    
+    count = 0
+    for year in all_year:
+        total = pokemon_data.get(year, 0) + 
+
+
     
 
 
