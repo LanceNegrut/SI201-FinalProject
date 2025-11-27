@@ -46,24 +46,6 @@ def load_json(filename):
         return {}
 
 
-def create_cache(dict, filename):
-    '''
-    Encodes dictonary into JSON format and writes
-    the JSON to filename to save the search results
-
-    ARGUMENTS: 
-        filename: the name of the file to write a cache to
-        dict: cache dictionary
-
-    RETURNS: 
-        None
-    '''
-
-    with open(filename, 'w') as f:
-        json.dump(dict, f, indent=4) 
-    return None
-
-
 def read_data_from_file(filename):
     """
     Reads data from a file with the given filename.
