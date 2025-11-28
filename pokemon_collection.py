@@ -98,7 +98,7 @@ def main():
         total_sets = get_current_state(cursor) 
 
         # Feedback for user
-        print(f"**Database Status:** {total_sets} sets currently stored (Target: 100)")
+        print(f"DATABASE STATUS: {total_sets} sets currently stored (Target: 170)")
 
         next_page = (total_sets // 25) + 1 
         sets_inserted, fetch_success = fetch_and_insert_data(conn, api_key, next_page)
@@ -107,10 +107,9 @@ def main():
 
             # Feedback for user
             print("\n" + "-" * 50)
-            print(f"**Run Summary (Page {next_page}):**")
-            print(f"  - Inserted {sets_inserted} new unique set records.")
-            print(f"  - Total sets stored: {new_total_sets}")
-            print(f"  - Remaining until target: {max(0, 100 - new_total_sets)}")
+            print(f"Run Summary (Page {next_page}):")
+            print(f"  - Inserted {sets_inserted} new sets!")
+            print(f"  - Total sets in databse: {new_total_sets} out of 170")
             print("-" * 50)
         elif fetch_success is False and next_page > 1:
             print("\n" + "-" * 50)
