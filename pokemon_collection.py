@@ -79,6 +79,7 @@ def fetch_and_insert_data(conn, api_key, page_number):
             cursor.execute("INSERT OR IGNORE INTO 'Pokemon Release Dates' (releaseDate) VALUES (?)", (release_date,))
             cursor.execute("SELECT releaseDate_id FROM 'Pokemon Release Dates' WHERE releaseDate = ?", (release_date,))
             release_date_id = cursor.fetchone()[0]
+
             cursor.execute("""
             INSERT OR IGNORE INTO "Pokemon Sets" (total, releaseDate_id)
             VALUES (?, ?)
@@ -99,6 +100,11 @@ def main():
 
         # Feedback for user
         print(f"DATABASE STATUS: {total_sets} sets currently stored (Target: 170)")
+        if total_sets == 170:
+            print("\n" + "-" * 50)
+            print("Target met. Congratulations!")
+            print("-" * 50)
+            return
 
         next_page = (total_sets // 25) + 1 
         sets_inserted, fetch_success = fetch_and_insert_data(conn, api_key, next_page)
