@@ -5,18 +5,14 @@ import sqlite3
 from collections import defaultdict
 import matplotlib.pyplot as plt
 
-def calculate_pokemon_creatures_per_year(conn):
+def calculate_pokemon_total_per_year(conn):
 
-    
     """
-    Calculate the number of unique Pokémon creature cards released each year
+    Calculate the total number of cards of all Pokémon creature cards released each year
     
-    Args:
-        conn: SQLite database connection
-        
-    Returns:
-        dict: {year: count} - Number of creature cards per year
-    """
+    Args: Pending"""
+    
+    
     cursor = conn.cursor()
     
     #creature cards (Supertype = 'Pokémon') with release dates (example from Discussion 12)
