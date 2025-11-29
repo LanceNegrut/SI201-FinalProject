@@ -100,7 +100,7 @@ def main():
 
         # Feedback for user
         print(f"DATABASE STATUS: {total_sets} sets currently stored (Target: 170)")
-        if total_sets == 170:
+        if total_sets >= 170:
             print("\n" + "-" * 50)
             print("Target met. Congratulations!")
             print("-" * 50)
