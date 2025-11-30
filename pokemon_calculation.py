@@ -10,9 +10,11 @@ def calculate_pokemon_total_per_year(conn):
     """
     Calculate the total number of cards of all Pokémon creature cards released each year
     
-    Args: Pending"""
-    
-    
+    Args:
+        conn: SQLite database connection
+    Returns: 
+        dict: {year: total_cards} - total cards released per year
+    """
     cursor = conn.cursor()
     
     #creature cards (Supertype = 'Pokémon') with release dates (example from Discussion 12)
