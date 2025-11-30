@@ -68,8 +68,23 @@ def calculate_pokemon_sets_per_year(conn):
 # Create a bar chart to visualize the data 
 
 def create_histogram(data, title, xlabel, ylable):
-    years = list(data.keys())
-    counts = list(data.values())
+    """
+    Create a histogram to visualize the the data
+
+    Args:
+
+        data: Year as key and count as value 
+        title: Title of the histogram
+        xlabel: x-axis 
+        ylabel: y-axis 
+    """
+    
+    years = sorted(data.keys())
+    counts = [data[year] for year in years] #this is data values by year 
+    #counts = list(data.values())
+
+
+    
     plt.bar(years, counts)
     plt.title(title)
     plt.xlabel(xlabel)
