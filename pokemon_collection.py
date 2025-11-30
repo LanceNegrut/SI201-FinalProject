@@ -30,6 +30,7 @@ def initialize_db(db_name):
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS "Pokemon Sets" (
         set_id INTEGER PRIMARY KEY,
+        name TEXT,
         total INTEGER,
         releaseDate_id INTEGER,
         FOREIGN KEY (releaseDate_id) 
@@ -70,20 +71,21 @@ def fetch_and_insert_data(conn, api_key, page_number):
 
     with conn: 
         for set_info in sets_data:
+            name = set_info.get('name')
             release_date = set_info.get('releaseDate')
             total = set_info.get('total')
 
             # Filtering out incomplete data
-            if not all([release_date, total is not None]): continue
+            if not all([name, release_date, total is not None]): continue
 
             cursor.execute("INSERT OR IGNORE INTO 'Pokemon Release Dates' (releaseDate) VALUES (?)", (release_date,))
             cursor.execute("SELECT releaseDate_id FROM 'Pokemon Release Dates' WHERE releaseDate = ?", (release_date,))
             release_date_id = cursor.fetchone()[0]
 
             cursor.execute("""
-            INSERT OR IGNORE INTO "Pokemon Sets" (total, releaseDate_id)
-            VALUES (?, ?)
-            """, (total, release_date_id)) 
+            INSERT OR IGNORE INTO "Pokemon Sets" (name, total, releaseDate_id)
+            VALUES (?, ?, ?)
+            """, (name, total, release_date_id)) 
             
             if cursor.rowcount > 0:
                 sets_inserted_count += 1
