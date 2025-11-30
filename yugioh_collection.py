@@ -8,22 +8,22 @@ def initialize_db(db_name):
     cursor = conn.cursor()
     cursor.execute("PRAGMA foreign_keys = ON;") # Foreign keys need to be explicitly turned on
 
-    # TABLE 1: Pokemon Release Dates (releaseDate_id, releaseDate)
+    # TABLE 1: Yu-Gi-Oh Release Dates (tcg_date_id, tcg_date)
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS "Pokemon Release Dates" (
-        releaseDate_id INTEGER PRIMARY KEY,
-        releaseDate TEXT UNIQUE NOT NULL
+    CREATE TABLE IF NOT EXISTS "Yu-Gi-Oh Release Dates" (
+        tcg_date_id INTEGER PRIMARY KEY,
+        tcg_date TEXT UNIQUE NOT NULL
     );
     """)
 
-    # TABLE 2: Pokemon Sets (set_id, total, releaseDate_id)
+    # TABLE 2: Yu-Gi-Oh Sets (set_id, num_of_cards, tcg_date_id)
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS "Pokemon Sets" (
+    CREATE TABLE IF NOT EXISTS "Yu-Gi-Oh Sets" (
         set_id INTEGER PRIMARY KEY,
-        total INTEGER,
-        releaseDate_id INTEGER,
-        FOREIGN KEY (releaseDate_id) 
-            REFERENCES "Pokemon Release Dates" (releaseDate_id)
+        num_of_cards INTEGER,
+        tcg_date_id INTEGER,
+        FOREIGN KEY (tcg_date_id) 
+            REFERENCES "Yu-Gi-Oh Release Dates" (tcg_date_id)
     );
     """)
     
@@ -33,7 +33,7 @@ def initialize_db(db_name):
 
 def get_current_state(cursor):
     # Discovering how many sets are currently in the database
-    cursor.execute('SELECT COUNT(set_id) FROM "Pokemon Sets"')
+    cursor.execute('SELECT COUNT(set_id) FROM "Yu-Gi-Oh Sets"')
     total_sets = cursor.fetchone()[0]
     return total_sets
 
