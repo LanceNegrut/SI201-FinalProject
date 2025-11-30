@@ -32,7 +32,7 @@ def joining_tables(cur):
     
     count = 0
     for year in all_year:
-        total = pokemon_data.get(year, 0) + 
+        total = pokemon_data.get(year, 0) + #pending...
 
 
     
