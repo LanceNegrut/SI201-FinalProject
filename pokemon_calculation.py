@@ -84,8 +84,12 @@ def create_histogram(data, title, xlabel, ylable):
     #counts = list(data.values())
 
 
+    plt.figure(figsize=(10, 6))
+    plt.bar(years, counts, color="skyblue", edgecolor="black", linewidth=1.5)
+    #plt.bar(years, counts)
+    plt.title(title, fontsize=14, fontweight='bold')
     
-    plt.bar(years, counts)
+
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylable)
