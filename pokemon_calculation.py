@@ -67,7 +67,7 @@ def calculate_pokemon_sets_per_year(conn):
 
 # Create a bar chart to visualize the data 
 
-def create_histogram(data, title, xlabel, ylable):
+def create_histogram(data, title, xlabel, ylabel):
     """
     Create a histogram to visualize the the data
 
@@ -95,4 +95,15 @@ def create_histogram(data, title, xlabel, ylable):
     plt.tight_layout()
     plt.show()
 
-    return None 
+def main():
+    conn: sqlite3.connection = sqlite3.connect('tcg_data.db')
+
+    pokemon_total_per_year = calculate_pokemon_total_per_year(conn)
+    create_histogram(pokemon_total_per_year, "Total Pokémon Cards Released Per Year", "Year", "Total Cards Released")
+    pokemon_sets_per_year = calculate_pokemon_sets_per_year(conn)
+    create_histogram(pokemon_sets_per_year, "Total Pokémon Sets Released Per Year", "Year", "Total Sets Released")
+    
+    conn.close()
+    
+if __name__ == "__main__":
+    main()
