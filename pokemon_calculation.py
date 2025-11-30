@@ -88,11 +88,11 @@ def create_histogram(data, title, xlabel, ylable):
     plt.bar(years, counts, color="skyblue", edgecolor="black", linewidth=1.5)
     #plt.bar(years, counts)
     plt.title(title, fontsize=14, fontweight='bold')
-    
-
-    plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylable)
+    plt.xlabel(xlabel, fontsize=12)
+    plt.ylabel(ylabel, fontsize=12)
+    plt.xticks(rotation=45, ha="right")
+    plt.grid(axis='y', alpha=0.75)
+    plt.tight_layout()
     plt.show()
 
     return None 
