@@ -95,6 +95,11 @@ def create_histogram(data, title, xlabel, ylabel):
     plt.tight_layout()
     plt.show()
 
+
+def write_calculation_to_file(total_cards_data, sets_data, filename='pokemon_calculation.txt'):
+    # Rubric write calculation result to a text file:
+
+
 def main():
     conn: sqlite3.connection = sqlite3.connect('tcg_data.db')
 
@@ -104,6 +109,6 @@ def main():
     create_histogram(pokemon_sets_per_year, "Total Pokémon Sets Released Per Year", "Year", "Total Sets Released")
     
     conn.close()
-    
+
 if __name__ == "__main__":
     main()
