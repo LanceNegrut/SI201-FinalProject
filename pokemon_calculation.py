@@ -29,13 +29,16 @@ def calculate_pokemon_total_per_year(conn):
     results = cursor.fetchall()
     
     # This would be the results into year-based dictionary (example from Discussion 12)
+    # Updating to sum total per year 
     year_counts = defaultdict(int)
-    for date_str, count in results:
-        if date_str:  # Make sure date exists
-            year = date_str.split('-')[0]  # Extract year from date
-            year_counts[year] += count
+    for date_str, total in results:
+        if date_str and total is not None:  # Make sure date exists
+            year = date_str.split('/')[0]# Extract year from date
+            year_counts[year] += total
     
     return dict(year_counts)
+
+def calculate_pokemon_sets_per_year(conn):"""
 
 # Create a bar chart to visualize the data 
 
