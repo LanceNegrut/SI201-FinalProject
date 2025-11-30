@@ -3,16 +3,6 @@
 import requests
 import sqlite3
 
-def get_api_key(filename):
-    try:
-        with open(filename, 'r') as f:
-            api_key = f.read().strip()
-            return api_key
-    except:
-        print(f"Error: The file '{filename}' was not found.")
-        return None
-
-
 def initialize_db(db_name):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
@@ -54,7 +44,7 @@ def fetch_and_insert_data(conn, api_key, page_number):
     
     # FETCHING DATA
     try:
-        response = requests.get(f"https://api.pokemontcg.io/v2/sets?pageSize=25&page={page_number}", headers={'X-Api-Key': api_key}) 
+        response = requests.get(f"https://api.pokemontcg.io/v2/sets?pageSize=25&page={page_number}") 
         response.raise_for_status()
         sets_data = response.json().get('data', [])
     except requests.exceptions.RequestException as e:
