@@ -17,12 +17,13 @@ def calculate_pokemon_total_per_year(conn):
     """
     cursor = conn.cursor()
     
-    #creature cards (Supertype = 'Pokémon') with release dates (example from Discussion 12)
+    #the two tables need to be joined in order to get the releasedate. 
+
     cursor.execute("""
-        SELECT releaseDate, COUNT(DISTINCT card_id) 
-        FROM pokemon_cards 
-        WHERE Supertype = 'Pokémon'
-        GROUP BY releaseDate
+        SELECT rd.releaseDate, SUM(ps.total)
+        FROM "Pokemon Release Dates" rd
+        JOIN "Pokemon Sets" ps ON rd.releaseDate_id = ps.releaseDate_id
+        GROUP BY rd.releaseDate
     """)
     
     results = cursor.fetchall()
