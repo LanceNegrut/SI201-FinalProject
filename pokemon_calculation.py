@@ -38,7 +38,32 @@ def calculate_pokemon_total_per_year(conn):
     
     return dict(year_counts)
 
-def calculate_pokemon_sets_per_year(conn):"""
+def calculate_pokemon_sets_per_year(conn):
+    
+    """
+    Calculate the number of Pokémon set releases each year
+    
+    Args:
+        conn: SQLite database connection
+    Returns:
+        dict: {year: count} - number of set per year
+    """
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT rd.releaseDate, COUNT(ps.set_id)
+        FROM "Pokemon Release Dates" rd
+        JOIN "Pokemon Sets" ps ON rd.releaseDate_id = ps.releaseDate_id
+        GROUP BY rd.releaseDate
+        """)
+    
+    result = cursor.fetchall()
+
+    year_counts = defaultdict(int)
+    for date_str, count in result:
+        if date_str:
+            year = date_str.split('/')[0]
+            year_counts[year] += count
+    return dict(year_counts)
 
 # Create a bar chart to visualize the data 
 
