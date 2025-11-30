@@ -44,7 +44,7 @@ def fetch_and_insert_data(conn, api_key, page_number):
     
     # FETCHING DATA
     try:
-        response = requests.get(f"https://api.pokemontcg.io/v2/sets?pageSize=25&page={page_number}") 
+        response = requests.get(f"https://db.ygoprodeck.com/api/v7/cardsets.php?pageSize=25&page={page_number}") 
         response.raise_for_status()
         sets_data = response.json().get('data', [])
     except requests.exceptions.RequestException as e:
@@ -60,20 +60,20 @@ def fetch_and_insert_data(conn, api_key, page_number):
 
     with conn: 
         for set_info in sets_data:
-            release_date = set_info.get('releaseDate')
-            total = set_info.get('total')
+            tcg_date = set_info.get('tcg_date')
+            num_of_cards = set_info.get('num_of_cards')
 
             # Filtering out incomplete data
-            if not all([release_date, total is not None]): continue
+            if not all([tcg_date, num_of_cards is not None]): continue
 
-            cursor.execute("INSERT OR IGNORE INTO 'Pokemon Release Dates' (releaseDate) VALUES (?)", (release_date,))
-            cursor.execute("SELECT releaseDate_id FROM 'Pokemon Release Dates' WHERE releaseDate = ?", (release_date,))
-            release_date_id = cursor.fetchone()[0]
+            cursor.execute("INSERT OR IGNORE INTO 'Yu-Gi-Oh Release Dates' (tcg_date) VALUES (?)", (tcg_date,))
+            cursor.execute("SELECT tcg_date_id FROM 'Yu-Gi-Oh Release Dates' WHERE tcg_date = ?", (tcg_date,))
+            tcg_date_id = cursor.fetchone()[0]
 
             cursor.execute("""
-            INSERT OR IGNORE INTO "Pokemon Sets" (total, releaseDate_id)
+            INSERT OR IGNORE INTO "Yu-Gi-Oh Sets" (num_of_cards, tcg_date_id)
             VALUES (?, ?)
-            """, (total, release_date_id)) 
+            """, (num_of_cards, tcg_date_id)) 
             
             if cursor.rowcount > 0:
                 sets_inserted_count += 1
