@@ -82,7 +82,6 @@ def fetch_and_insert_data(conn, api_key, page_number):
 
 
 def main():
-    api_key = get_api_key("pokemon_api_key.txt")
     with sqlite3.connect("tcg_data.db") as conn:
         cursor = conn.cursor()
         initialize_db("tcg_data.db") 
