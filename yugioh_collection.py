@@ -58,6 +58,7 @@ def fetch_and_insert_data(conn, page_number, limit):
 
     start_index = (page_number - 1) * 25
     
+    # Don't add anything if all the sets are already there
     if start_index >= len(all_sets):
         return 0, False
 
@@ -108,6 +109,7 @@ def main():
 
         next_page = (total_sets // 25) + 1
         
+        # Preventing insertion of extra rows
         items_needed = 1006 - total_sets
         limit = min(25, items_needed)
 
