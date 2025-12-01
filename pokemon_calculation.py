@@ -109,7 +109,15 @@ def write_calculation_to_file(total_cards_data, sets_data, filename='pokemon_cal
     """
 
     with open(filename, 'w') as f:
-        f.write()
+        f.write("Pokemon Cards Released Per Year:\n")
+        for year in sorted(total_cards_data.keys()):
+            f.write(f'{year}: {total_cards_data[year]}\n')
+            f.write('\n')
+        f.write("Pokemon Sets Released Per Year:\n")
+        for year in sorted(sets_data.keys()):
+            f.write(f'{year}: {sets_data[year]}\n')
+            f.write('\n')
+    print(f"Calculation results written to {filename}")
 
 def main():
     conn: sqlite3.connection = sqlite3.connect('tcg_data.db')
@@ -118,6 +126,8 @@ def main():
     create_histogram(pokemon_total_per_year, "Total Pokémon Cards Released Per Year", "Year", "Total Cards Released")
     pokemon_sets_per_year = calculate_pokemon_sets_per_year(conn)
     create_histogram(pokemon_sets_per_year, "Total Pokémon Sets Released Per Year", "Year", "Total Sets Released")
+    pokemon_total_per_year, pokemon_sets_per_year = calculate_pokemon_total_per_year(conn), calculate_pokemon_sets_per_year(conn)
+    write_calculation_to_file(pokemon_total_per_year, pokemon_sets_per_year) # why is the text file not being created?
     
     conn.close()
 
