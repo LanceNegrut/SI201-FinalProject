@@ -112,19 +112,26 @@ def write_calculation_to_file(total_cards_data, sets_data, filename='All_calcula
 
     with open(filename, 'w') as f:
 
-        f.write("Pokemon Cards Released Per Year:\n")
-        f.write("-" * 30 + "\n")
+        f.write("-" * 30 + "\n\n")
+        f.write("Pokemon Calculation Results:\n\n")
+        f.write("-" * 30 + "\n\n")
+
+        f.write("Pokemon Cards Released Per Year:\n\n")
+        f.write("-" * 30 + "\n\n")
 
         for year in sorted(total_cards_data.keys()):
             f.write(f'{year}: {total_cards_data[year]}\n')
         f.write('\n')
 
+        f.write("-" * 30 + "\n\n")
         f.write("Pokemon Sets Released Per Year:\n")
-        f.write("-" * 30 + "\n")
+        f.write("-" * 30 + "\n\n")
 
         for year in sorted(sets_data.keys()):
             f.write(f'{year}: {sets_data[year]}\n')
 
+        f.write('\n' + "-" * 30 + '\n\n')
+        f.write("Yu-Gi-Oh Calculation Results:\n")
         f.write('\n' + "-" * 30 + '\n\n')
 
         f.write("Yu-Gi-Oh Cards Released Per Year:\n")
