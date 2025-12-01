@@ -5,34 +5,24 @@
 
 import sqlite3
 import matplotlib.pyplot as plt
-from pokemon_calculation import calculate_pokemon_creatures_per_year
-from digimon_calculation import calculate_digimon_creatures_per_year
-from yugioh_calculation import calculate_yugioh_creatures_per_year
-import math
+from pokemon_calculation import calculate_pokemon_total_per_year, calculate_pokemon_sets_per_year
+from yugioh_calculation import calculate_yugioh_total_per_year, calculate_yugioh_sets_per_year
 
 
-def joining_tables(cur):
+def joining_tables(conn):
 
     """
-    Join tables to get complete Amount of unique creature cards released each year for each game
+    Join tables to combine data from Pokemon, Yu-Gi-Oh cards per year. 
     
-    Args:
-        conn: Sqlite database connection
-    
-    Return 
-        dict: {year: count} - number of creature cards per year"""
-    
-    pokemon_data = calculate_pokemon_creatures_per_year(cur)
-    yugio_data = calculate_yugioh_creatures_per_year(cur)
-    digimon_data = calculate_digimon_creatures_per_year(cur)
+    """
 
-    all_year = set(pokemon_data.keys()), set(yugio_data.keys()), set(digimon_data.keys())
+    pokemon_data = calculate_pokemon_total_per_year(conn)
+    yugioh_data = calculate_yugioh_total_per_year(conn)
 
-    return all_year
-    
-    count = 0
-    for year in all_year:
-        total = pokemon_data.get(year, 0) + #pending...
+    all_years = set(pokemon_data.keys()) | set(yugioh_data.keys())
+    combined_data = {}
+
+    for year in all_years:
 
 
     
