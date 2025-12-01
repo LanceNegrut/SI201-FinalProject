@@ -23,6 +23,18 @@ def joining_tables(conn):
     combined_data = {}
 
     for year in all_years:
+        combined_data[year] = pokemon_data.get(year, 0) + yugioh_data.get(year, 0)
+    return combined_data, pokemon_data, yugioh_data
+
+def create_histogram(pokemon_data, yugioh_data, combined_data):
+    """
+
+    Create histogram comparing Pokemon, Yu-Gi-Oh, and combined card release per year and showing the trend and differences.
+    
+    """
+
+    all_years = sorted # Left on here for the next part of the code
+
 
 
     
