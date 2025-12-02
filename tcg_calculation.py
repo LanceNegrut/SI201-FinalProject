@@ -200,6 +200,9 @@ def joining_tables(conn):
 
     """
     Join tables to combine data from Pokemon, Yu-Gi-Oh cards per year. 
+
+    Returns: 
+    tuple with combined data, pokemon data, yugioh data
     
     """
 
@@ -213,14 +216,22 @@ def joining_tables(conn):
         combined_data[year] = pokemon_data.get(year, 0) + yugioh_data.get(year, 0)
     return combined_data, pokemon_data, yugioh_data
 
-def create_histogram(pokemon_data, yugioh_data, combined_data):
+def create_combined_histogram(pokemon_data, yugioh_data, combined_data):
     """
 
     Create histogram comparing Pokemon, Yu-Gi-Oh, and combined card release per year and showing the trend and differences.
     
     """
 
-    all_years = sorted
+    all_years = sorted(set(pokemon_data.keys()) | set(yugioh_data.keys()))
+
+    pokemon_data = [pokemon_data.get(year, 0) for year in all_years]
+    yugioh_data = [yugioh_data.get(year, 0) for year in all_years]
+    combined_data = [combined_data.get(year, 0) for year in all_years]
+
+    #double check if this part is correct? 
+
+
 
 def write_calculation_to_file(pokemon_total_cards, pokemon_sets, yugioh_total_cards, yugioh_sets, filename='All_calculation.txt'):
     # Rubric write calculation result to a text file:
@@ -274,8 +285,7 @@ def write_calculation_to_file(pokemon_total_cards, pokemon_sets, yugioh_total_ca
             row = f'{year:<{year_widths}} | {pokemon_total_cards:<{column_widths}} | {pokemon_sets:<{column_widths}} | {yugioh_total_cards:<{column_widths}} | {yugioh_sets:<{column_widths}} |'
             f.write(row + "\n")
        
-
-| 
+    pass
 
 
 
