@@ -215,7 +215,7 @@ def write_calculation_to_file(pokemon_total_cards, pokemon_sets, yugioh_total_ca
 
     with open(filename, 'w') as f:
 
-        all_years = set(pokemon_total_cards.keys()) | set(pokemon_sets.keys()) | set(yugioh_total_cards.keys()) | set(yugioh_sets.keys()):
+        all_years = set(pokemon_total_cards.keys()) | set(pokemon_sets.keys()) | set(yugioh_total_cards.keys()) | set(yugioh_sets.keys())
         sorted_years = sorted(list(all_years))
 
         f.write("Combined Pokemon & Yu-Gi-Oh Calculation Results:\n")
@@ -231,7 +231,21 @@ def write_calculation_to_file(pokemon_total_cards, pokemon_sets, yugioh_total_ca
         # header 
 
         header = f'{"Year":<{year_widths}} | {"Pokemon Cards Released":<{column_widths}} | {"Pokemon Sets Released":<{column_widths}} | {"Yu-Gi-Oh Cards Released":<{column_widths}} | {"Yu-Gi-Oh Sets Released":<{column_widths}} |'
+        f.write(header + "\n")
+        f.write("-" * 80 + "\n")
 
+
+        for year in sorted_years:
+            pokemon_total_cards = pokemon_total_cards.get(year, 0)
+            pokemon_sets = pokemon_sets.get(year, 0)
+            yugioh_total_cards = yugioh_total_cards.get(year, 0)
+            yugioh_sets = yugioh_sets.get(year, 0)
+
+
+            # Each of the rows 
+
+            row = f'{year:<{year_widths}} | {pokemon_total_cards:<{column_widths}} | {pokemon_sets:<{column_widths}} | {yugioh_total_cards:<{column_widths}} | {yugioh_sets:<{column_widths}} |'
+            f.write(row + "\n")
        
 
 | 
