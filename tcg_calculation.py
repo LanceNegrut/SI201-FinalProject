@@ -218,7 +218,7 @@ def write_calculation_to_file(pokemon_total_cards, pokemon_sets, yugioh_total_ca
         all_years = set(pokemon_total_cards.keys()) | set(pokemon_sets.keys()) | set(yugioh_total_cards.keys()) | set(yugioh_sets.keys()):
         sorted_years = sorted(list(all_years))
 
-        f.write("Year | Pokemon Cards Released | Pokemon Sets Released | Yu-Gi-Oh Cards Released | Yu-Gi-Oh Sets Released |")
+        f.write("Combined Pokemon & Yu-Gi-Oh Calculation Results:\n")
         f.write('\n')
         f.write("-" * 80 + '\n')
         f.write('\n')
