@@ -195,7 +195,7 @@ def create_yugioh_histogram(data, title, xlabel, ylabel):
     plt.tight_layout()
     plt.show()
 
-def write_calculation_to_file(total_cards_data, sets_data, filename='All_calculation.txt'):
+def write_calculation_to_file(pokemon_total_cards, pokemon_sets, yugioh_total_cards, yugioh_sets, filename='All_calculation.txt'):
     # Rubric write calculation result to a text file:
 
     """
@@ -205,60 +205,76 @@ def write_calculation_to_file(total_cards_data, sets_data, filename='All_calcula
         total_cards_data: dict of the total cards released per year 
         sets_data: dict of the total sets released per year 
         filename: this would be the output filename 
+
+        Example - Structure will be like this: 
+
+        Year | Pokemon Cards Released | Pokemon Sets Released | Yu-Gi-Oh Cards Released | Yu-Gi-Oh Sets Released |
+        1999 |          500          |          5           |          300           |          3            |
+
     """
 
     with open(filename, 'w') as f:
 
-        f.write("-" * 30 + "\n\n")
-        f.write("Pokemon Calculation Results:\n\n")
-        f.write("-" * 30 + "\n\n")
+        all_years = set(pokemon_total_cards.keys()) | set(pokemon_sets.keys()) | set(yugioh_total_cards.keys()) | set(yugioh_sets.keys()):
+        sorted_years = sorted(list(all_years))
 
-        f.write("Pokemon Cards Released Per Year:\n\n")
-        f.write("-" * 30 + "\n\n")
+| 
 
-        for year in sorted(total_cards_data.keys()):
-            f.write(f'{year}: {total_cards_data[year]}\n')
-        f.write('\n')
 
-        f.write("-" * 30 + "\n\n")
-        f.write("Pokemon Sets Released Per Year:\n")
-        f.write("-" * 30 + "\n\n")
 
-        for year in sorted(sets_data.keys()):
-            f.write(f'{year}: {sets_data[year]}\n')
+        # f.write("-" * 30 + "\n\n")
+        # f.write("Pokemon Calculation Results:\n\n")
+        # f.write("-" * 30 + "\n\n")
 
-        f.write('\n' + "-" * 30 + '\n\n')
-        f.write("Yu-Gi-Oh Calculation Results:\n")
-        f.write('\n' + "-" * 30 + '\n\n')
+        # f.write("Pokemon Cards Released Per Year:\n\n")
+        # f.write("-" * 30 + "\n\n")
 
-        f.write("Yu-Gi-Oh Cards Released Per Year:\n")
-        f.write("-" * 30 + "\n")
+        # for year in sorted(pokemon_total_cards.keys()):
+        #     f.write(f'{year}: {pokemon_total_cards[year]}\n')
+        # f.write('\n')
 
-        for year in sorted(total_cards_data.keys()):
-            f.write(f'{year}: {total_cards_data[year]}\n')
-        f.write('\n')
+        # f.write("-" * 30 + "\n\n")
+        # f.write("Pokemon Sets Released Per Year:\n")
+        # f.write("-" * 30 + "\n\n")
 
-        f.write("Yu-Gi-Oh Sets Released Per Year:\n")
-        f.write("-" * 30 + "\n")
+        # for year in sorted(pokemon_sets.keys()):
+        #     f.write(f'{year}: {pokemon_sets[year]}\n')
 
-        for year in sorted(sets_data.keys()):
-            f.write(f'{year}: {sets_data[year]}\n')
+        # f.write('\n' + "-" * 30 + '\n\n')
+        # f.write("Yu-Gi-Oh Calculation Results:\n")
+        # f.write('\n' + "-" * 30 + '\n\n')
+
+        # f.write("Yu-Gi-Oh Cards Released Per Year:\n")
+        # f.write("-" * 30 + "\n")
+
+        # for year in sorted(yugioh_total_cards.keys()):
+        #     f.write(f'{year}: {yugioh_total_cards[year]}\n')
+        # f.write('\n')
+
+        # f.write("Yu-Gi-Oh Sets Released Per Year:\n")
+        # f.write("-" * 30 + "\n")
+
+        # for year in sorted(yugioh_sets.keys()):
+        #     f.write(f'{year}: {yugioh_sets[year]}\n')
 
     print(f"Yu-Gi-Oh & PokemonCalculation results written to {filename}")
 
 def main():
+    # Look back on Discussion for to have the full path to the database file.
+
     conn = sqlite3.connect('tcg_data.db')
 
-    calculate_pokemon_total_per_year = calculate_pokemon_total_per_year(conn)
-    create_pokemon_histogram(calculate_pokemon_total_per_year, "Total Pokemon Cards Released Per Year", "Year", "Total Cards Released Per Year")
-    calculate_pokemon_sets_per_year = calculate_pokemon_sets_per_year(conn)
-    create_pokemon_histogram(calculate_pokemon_sets_per_year, "Total Pokemon Sets Released Per Year", "Year", "Total Sets Released")
+    pokemon_total_per_year = calculate_pokemon_total_per_year(conn)
+    create_pokemon_histogram(pokemon_total_per_year, "Total Pokemon Cards Released Per Year", "Year", "Total Cards Released Per Year")
+    pokemon_sets_per_year = calculate_pokemon_sets_per_year(conn)
+    create_pokemon_histogram(pokemon_sets_per_year, "Total Pokemon Sets Released Per Year", "Year", "Total Sets Released")
 
     yugioh_total_per_year = calculate_yugioh_total_per_year(conn)
     create_yugioh_histogram(yugioh_total_per_year, "Total Yu-Gi-Oh Cards Released Per Year", "Year", "Total Cards Released")
     yugioh_sets_per_year = calculate_yugioh_sets_per_year(conn)
     create_yugioh_histogram(yugioh_sets_per_year, "Total Yu-Gi-Oh Sets Released Per Year", "Year", "Total Sets Released")
     
+    write_calculation_to_file(pokemon_total_per_year, pokemon_sets_per_year, yugioh_total_per_year, yugioh_sets_per_year)
     
     conn.close()
 
