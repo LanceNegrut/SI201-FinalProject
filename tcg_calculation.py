@@ -225,11 +225,45 @@ def create_combined_histogram(pokemon_data, yugioh_data, combined_data):
 
     all_years = sorted(set(pokemon_data.keys()) | set(yugioh_data.keys()))
 
-    pokemon_data = [pokemon_data.get(year, 0) for year in all_years]
-    yugioh_data = [yugioh_data.get(year, 0) for year in all_years]
-    combined_data = [combined_data.get(year, 0) for year in all_years]
+    pokemon_values = [pokemon_data.get(year, 0) for year in all_years]
+    yugioh_values= [yugioh_data.get(year, 0) for year in all_years]
+    combined_values = [combined_data.get(year, 0) for year in all_years]
 
-    #double check if this part is correct? 
+    x = np.arange(len(all_years))
+    width = 0.25
+
+    bars1 = plt.bar(x - width, pokemon_values, width, label='Pokemon', color='blue', edgecolor='black', linewidth=1.5)
+    bars2 = plt.bar(x, yugioh_values, width, label='Yu-Gi-Oh', color='red', edgecolor='black', linewidth=1.5)
+    bars3 = plt.bar(x + width, combined_values, width, label='Combined', color='yellow', edgecolor='black', linewidth=1.5)
+
+    ax.set_xlabel('Year', fontsize=13, fontweight='bold')
+    ax.set_ylabel('Total Cards Released', fontsize=13, fontweight='bold')
+    ax.set_title('TCG Production Trends: Pokemon vs Yu-Gi-Oh Over the Years', fontsize=16, fontweight='bold')
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(all_years, rotation=45, ha='right')
+    ax.legend(axis='y', alpha=0.7, linestyle="--")
+
+    plt.tight_laoyout()
+    plt.show()
+
+
+def calculate_average_cards_per_set(conn):
+    """
+    We are going to get the avarege cards per set for each year.
+    SHow the trend: Sets getting bigger or smaller over time.
+
+    Returns:
+    tuple: (pokemon_avg_per_set, yugioh_avg_per_set)
+
+    """
+
+    pokemon_cards = calculate_pokemon_total_per_year(conn)
+    pokemont_sets = calculate_pokemon_sets_per_year(conn)
+    yugioh_cards = calculate_yugioh_total_per_year(conn)
+    yugioh_sets = calculate_yugioh_sets_per_year(conn)
+
+    pass 
 
 
 
