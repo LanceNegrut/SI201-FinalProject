@@ -259,13 +259,23 @@ def calculate_average_cards_per_set(conn):
     """
 
     pokemon_cards = calculate_pokemon_total_per_year(conn)
-    pokemont_sets = calculate_pokemon_sets_per_year(conn)
+    pokemon_sets = calculate_pokemon_sets_per_year(conn)
     yugioh_cards = calculate_yugioh_total_per_year(conn)
     yugioh_sets = calculate_yugioh_sets_per_year(conn)
 
-    pass 
+    pokemon_average = {}
+    for year in pokemon_cards():
+        if year in pokemon_sets and pokemon_sets[year] > 0:
+            pokemon_average[year] = round(pokemon_cards[year] / pokemon_sets[year], 1)
 
+    yugioh_average = {}
+    for year in yugioh_cards():
+        if year in yugioh_sets and yugioh_sets[year] > 0:
+            yugioh_average[year] = round(yugioh_cards[year] / yugioh_sets[year], 1)
+    
+    return pokemon_average, yugioh_average
 
+            
 
 def write_calculation_to_file(pokemon_total_cards, pokemon_sets, yugioh_total_cards, yugioh_sets, filename='All_calculation.txt'):
     # Rubric write calculation result to a text file:
