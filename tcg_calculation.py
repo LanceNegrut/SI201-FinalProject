@@ -275,13 +275,42 @@ def calculate_average_cards_per_set(conn):
     
     return pokemon_average, yugioh_average
 
-            
+def create_average_sets_line_chart(pokemon_average, yugioh_average):
+    """
+    Line Chart: This would show the the average set size trends. 
+
+    Args:
+        pokemon_average: average cards per set for Pokemon
+        yugioh_average: average cards per set for Yu-Gi-Oh
+
+    """
+
+    all_years = sorted(set(pokemon_average.keys.()) | set (yugioh_average.keys()))
+    pokemon_values = [pokemon_average.get(year, 0) for year in all_years]
+    yugioh_values = [yugioh_average.get(year, 0) for year in all_years]
+
+    plt.figure(figsize=(10. 7))
+    
+    # make sure here we use the line correctly. 
+
+    plt.plot(all_years, pokemon_values, marker='0', linewidth=2, markersize=6, label='Pokemon Avg Set Size', color='blue', linestyle='-') # pokemon line
+        
+    plt.plot(all_years, yugioh_values, marker='s', linewidth=2, markersize=6, label='Yu-Gi-Oh Avg Set Size', color='yellow', linestyle='-') # yugioh line
+
+
+    plt.xlabel('Year', fontsize=13, fontweight='bold')
+    plt.ylabel('Ave Cards Per Set', fontsize=13, fontweight='bold')
+    plt.legend(fontsize=12, loc='best')
+    plt.grid(True, alpha=0.3, linestyle='--')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.show()
 
 def write_calculation_to_file(pokemon_total_cards, pokemon_sets, yugioh_total_cards, yugioh_sets, filename='All_calculation.txt'):
     # Rubric write calculation result to a text file:
 
     """
-    Write calculation result to a text file with both Pokemon and Yu-Gi-Oh data
+    Write calculated on result to a text file with both Pokemon and Yu-Gi-Oh data
 
     Args:
         total_cards_data: dict of the total cards released per year 
@@ -293,43 +322,58 @@ def write_calculation_to_file(pokemon_total_cards, pokemon_sets, yugioh_total_ca
         Year | Pokemon Cards Released | Pokemon Sets Released | Yu-Gi-Oh Cards Released | Yu-Gi-Oh Sets Released |
         1999 |          500          |          5           |          300           |          3            |
 
+    
+    #I'm doing an Update here to have similar structure but adding more to it.
+
     """
 
+
+
+    #all_years = set(pokemon_total_cards.keys()) | set(pokemon_sets.keys()) | set(yugioh_total_cards.keys()) | set(yugioh_sets.keys())
+    #sorted_years = sorted(list(all_years))
+
+    # Doing a different way to get all the calculations because now we have the average part too.
+
+    pokemon_average, yugioh_average = calculate_average_cards_per_set(conn)
+    peak_years = set(pokemon_average.keys()) | set(yugioh_average.keys())
+
     with open(filename, 'w') as f:
+            all_years = set(pokemon_total_cards.keys()) | set(pokemon_sets.keys()) | set(yugioh_total_cards.keys()) | set(yugioh_sets.keys()) 
+            sorted_years = sorted(list(all_years))
 
-        all_years = set(pokemon_total_cards.keys()) | set(pokemon_sets.keys()) | set(yugioh_total_cards.keys()) | set(yugioh_sets.keys())
-        sorted_years = sorted(list(all_years))
+            
+        
 
-        f.write("Combined Pokemon & Yu-Gi-Oh Calculation Results:\n")
-        f.write('\n')
-        f.write("-" * 80 + '\n')
-        f.write('\n')
+    #     f.write("Combined Pokemon & Yu-Gi-Oh Calculation Results:\n")
+    #     f.write('\n')
+    #     f.write("-" * 80 + '\n')
+    #     f.write('\n')
 
-        # columns width for formatting 
+    #     # columns width for formatting 
 
-        column_widths = 15
-        year_widths = 6 
+    #     column_widths = 15
+    #     year_widths = 6 
 
-        # header 
+    #     # header 
 
-        header = f'{"Year":<{year_widths}} | {"Pokemon Cards Released":<{column_widths}} | {"Pokemon Sets Released":<{column_widths}} | {"Yu-Gi-Oh Cards Released":<{column_widths}} | {"Yu-Gi-Oh Sets Released":<{column_widths}} |'
-        f.write(header + "\n")
-        f.write("-" * 80 + "\n")
-
-
-        for year in sorted_years:
-            pokemon_total_cards = pokemon_total_cards.get(year, 0)
-            pokemon_sets = pokemon_sets.get(year, 0)
-            yugioh_total_cards = yugioh_total_cards.get(year, 0)
-            yugioh_sets = yugioh_sets.get(year, 0)
+    #     header = f'{"Year":<{year_widths}} | {"Pokemon Cards Released":<{column_widths}} | {"Pokemon Sets Released":<{column_widths}} | {"Yu-Gi-Oh Cards Released":<{column_widths}} | {"Yu-Gi-Oh Sets Released":<{column_widths}} |'
+    #     f.write(header + "\n")
+    #     f.write("-" * 80 + "\n")
 
 
-            # Each of the rows 
+    #     for year in sorted_years:
+    #         pokemon_total_cards = pokemon_total_cards.get(year, 0)
+    #         pokemon_sets = pokemon_sets.get(year, 0)
+    #         yugioh_total_cards = yugioh_total_cards.get(year, 0)
+    #         yugioh_sets = yugioh_sets.get(year, 0)
 
-            row = f'{year:<{year_widths}} | {pokemon_total_cards:<{column_widths}} | {pokemon_sets:<{column_widths}} | {yugioh_total_cards:<{column_widths}} | {yugioh_sets:<{column_widths}} |'
-            f.write(row + "\n")
+
+    #         # Each of the rows 
+
+    #         row = f'{year:<{year_widths}} | {pokemon_total_cards:<{column_widths}} | {pokemon_sets:<{column_widths}} | {yugioh_total_cards:<{column_widths}} | {yugioh_sets:<{column_widths}} |'
+    #         f.write(row + "\n")
        
-    pass
+    # pass
 
 
 
