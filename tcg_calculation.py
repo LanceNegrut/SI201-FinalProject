@@ -9,6 +9,7 @@
 import sqlite3
 from collections import defaultdict
 import matplotlib.pyplot as plt 
+import numpy as np
 
 
 def calculate_pokemon_total_per_year(conn):
@@ -100,9 +101,6 @@ def create_pokemon_histogram(data, title, xlabel, ylabel):
     plt.grid(axis='y', alpha=0.75)
     plt.tight_layout()
     plt.show()
-
-
-    #THIS WOULD BE THE YU_GI_OH CALCULATION PART 
 
 def calculate_yugioh_total_per_year(conn):
 
@@ -229,12 +227,13 @@ def create_combined_histogram(pokemon_data, yugioh_data, combined_data):
     yugioh_values= [yugioh_data.get(year, 0) for year in all_years]
     combined_values = [combined_data.get(year, 0) for year in all_years]
 
+    fig, ax = plt.subplots()
     x = np.arange(len(all_years))
     width = 0.25
 
-    bars1 = plt.bar(x - width, pokemon_values, width, label='Pokemon', color='blue', edgecolor='black', linewidth=1.5)
-    bars2 = plt.bar(x, yugioh_values, width, label='Yu-Gi-Oh', color='red', edgecolor='black', linewidth=1.5)
-    bars3 = plt.bar(x + width, combined_values, width, label='Combined', color='yellow', edgecolor='black', linewidth=1.5)
+    bars1 = ax.bar(x - width, pokemon_values, width, label='Pokemon', color='blue', edgecolor='black', linewidth=1.5)
+    bars2 = ax.bar(x, yugioh_values, width, label='Yu-Gi-Oh', color='red', edgecolor='black', linewidth=1.5)
+    bars3 = ax.bar(x + width, combined_values, width, label='Combined', color='yellow', edgecolor='black', linewidth=1.5)
 
     ax.set_xlabel('Year', fontsize=13, fontweight='bold')
     ax.set_ylabel('Total Cards Released', fontsize=13, fontweight='bold')
@@ -242,9 +241,9 @@ def create_combined_histogram(pokemon_data, yugioh_data, combined_data):
 
     ax.set_xticks(x)
     ax.set_xticklabels(all_years, rotation=45, ha='right')
-    ax.legend(axis='y', alpha=0.7, linestyle="--")
+    ax.legend(loc='best')
 
-    plt.tight_laoyout()
+    plt.tight_layout()
     plt.show()
 
 
@@ -264,12 +263,12 @@ def calculate_average_cards_per_set(conn):
     yugioh_sets = calculate_yugioh_sets_per_year(conn)
 
     pokemon_average = {}
-    for year in pokemon_cards():
+    for year in pokemon_cards.keys():
         if year in pokemon_sets and pokemon_sets[year] > 0:
             pokemon_average[year] = round(pokemon_cards[year] / pokemon_sets[year], 1)
 
     yugioh_average = {}
-    for year in yugioh_cards():
+    for year in yugioh_cards.keys():
         if year in yugioh_sets and yugioh_sets[year] > 0:
             yugioh_average[year] = round(yugioh_cards[year] / yugioh_sets[year], 1)
     
@@ -285,15 +284,15 @@ def create_average_sets_line_chart(pokemon_average, yugioh_average):
 
     """
 
-    all_years = sorted(set(pokemon_average.keys.()) | set (yugioh_average.keys()))
+    all_years = sorted(set(pokemon_average.keys()) | set (yugioh_average.keys()))
     pokemon_values = [pokemon_average.get(year, 0) for year in all_years]
     yugioh_values = [yugioh_average.get(year, 0) for year in all_years]
 
-    plt.figure(figsize=(10. 7))
+    plt.figure(figsize=(10, 7))
     
     # make sure here we use the line correctly. 
 
-    plt.plot(all_years, pokemon_values, marker='0', linewidth=2, markersize=6, label='Pokemon Avg Set Size', color='blue', linestyle='-') # pokemon line
+    plt.plot(all_years, pokemon_values, marker='o', linewidth=2, markersize=6, label='Pokemon Avg Set Size', color='blue', linestyle='-') # pokemon line
         
     plt.plot(all_years, yugioh_values, marker='s', linewidth=2, markersize=6, label='Yu-Gi-Oh Avg Set Size', color='yellow', linestyle='-') # yugioh line
 
@@ -306,7 +305,7 @@ def create_average_sets_line_chart(pokemon_average, yugioh_average):
     plt.tight_layout()
     plt.show()
 
-def write_calculation_to_file(pokemon_total_cards, pokemon_sets, yugioh_total_cards, yugioh_sets, filename='All_calculation.txt'):
+def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_total_cards, yugioh_sets, filename='All_calculation.txt'):
     # Rubric write calculation result to a text file:
 
     """
@@ -324,113 +323,113 @@ def write_calculation_to_file(pokemon_total_cards, pokemon_sets, yugioh_total_ca
 
     
     #I'm doing an Update here to have similar structure but adding more to it.
-
     """
-
-
-
-    #all_years = set(pokemon_total_cards.keys()) | set(pokemon_sets.keys()) | set(yugioh_total_cards.keys()) | set(yugioh_sets.keys())
-    #sorted_years = sorted(list(all_years))
 
     # Doing a different way to get all the calculations because now we have the average part too.
 
     pokemon_average, yugioh_average = calculate_average_cards_per_set(conn)
-    peak_years = set(pokemon_average.keys()) | set(yugioh_average.keys())
 
     with open(filename, 'w') as f:
-            all_years = set(pokemon_total_cards.keys()) | set(pokemon_sets.keys()) | set(yugioh_total_cards.keys()) | set(yugioh_sets.keys()) 
-            sorted_years = sorted(list(all_years))
+        all_years = set(pokemon_total_cards.keys()) | set(pokemon_sets.keys()) | set(yugioh_total_cards.keys()) | set(yugioh_sets.keys()) 
+        sorted_years = sorted(list(all_years))
 
-            
+        f.write("Pokemon & Yu-Gi-Oh Calculation Results Combined:\n")
+        f.write("=" * 100 + "\n")
+
+        column_widths = 12
+        year_widths = 6
+
+        header = f'{"Year":<{year_widths}} | {"Pokemon Cards":<{column_widths}} | {"Pokemon Sets":>{column_widths}} | {"Yu-Gi-Oh Card":<{column_widths}} | {"Yu-Gi-Oh Sets":<{column_widths}}'
+        f.write(header + "\n")
+        f.write("=" * 100 + "\n")
+
+        for year in sorted_years:
+            poke_cards_total = pokemon_total_cards.get(year, 0)
+            poke_sets_total = pokemon_sets.get(year, 0)
+            yugioh_cards_total = yugioh_total_cards.get(year, 0)
+            yugioh_sets_total = yugioh_sets.get(year, 0)
         
+            row = f'{year:<{year_widths}} | {poke_cards_total:<{column_widths}} | {poke_sets_total:<{column_widths}} | {yugioh_cards_total:<{column_widths}} | {yugioh_sets_total:<{column_widths}}'
+            f.write(row + "\n")
 
-    #     f.write("Combined Pokemon & Yu-Gi-Oh Calculation Results:\n")
-    #     f.write('\n')
-    #     f.write("-" * 80 + '\n')
-    #     f.write('\n')
+        f.write("-" * 100 + "\n\n")
 
-    #     # columns width for formatting 
+        f.write("Average Cards per Set Over a specific time period:\n")
+        f.write("-" * 100 + "\n")
 
-    #     column_widths = 15
-    #     year_widths = 6 
+        f.write("Early Years first 5 years:\n")
+        early_years = sorted(pokemon_average.keys())[:5]
 
-    #     # header 
+        for year in early_years:
+            pokemon_avg = pokemon_average.get(year, 0)
+            yugioh_avg = yugioh_average.get(year, 0)
+            f.write(f'{year}: Pokemon = {pokemon_avg}, Yu-Gi-Oh = {yugioh_avg}\n')
 
-    #     header = f'{"Year":<{year_widths}} | {"Pokemon Cards Released":<{column_widths}} | {"Pokemon Sets Released":<{column_widths}} | {"Yu-Gi-Oh Cards Released":<{column_widths}} | {"Yu-Gi-Oh Sets Released":<{column_widths}} |'
-    #     f.write(header + "\n")
-    #     f.write("-" * 80 + "\n")
+        f.write("Recent Years last 5 years:\n")
+        recent_years = sorted(pokemon_average.keys())[-5:]
 
+        for year in recent_years:
+            pokemon_avg = pokemon_average.get(year, 0)
+            yugioh_avg = yugioh_average.get(year, 0)
+            f.write(f'{year}: Pokemon = {pokemon_avg}, Yu-Gi-Oh = {yugioh_avg}\n')
 
-    #     for year in sorted_years:
-    #         pokemon_total_cards = pokemon_total_cards.get(year, 0)
-    #         pokemon_sets = pokemon_sets.get(year, 0)
-    #         yugioh_total_cards = yugioh_total_cards.get(year, 0)
-    #         yugioh_sets = yugioh_sets.get(year, 0)
+    # Here will be where we will analyze the growth trends.
 
+        if early_years and recent_years:
+            pokemon_early_avg = sum(pokemon_average.get(year, 0) for year in early_years) / len(early_years)
+            pokemon_recent_avg = sum(pokemon_average.get(year, 0) for year in recent_years) / len(recent_years)
+            yugioh_early_avg = sum(yugioh_average.get(year, 0) for year in early_years) / len(early_years)
+            yugioh_recent_avg = sum(yugioh_average.get(year, 0) for year in recent_years) / len(recent_years)
 
-    #         # Each of the rows 
+            f.write(f"\nPokemon & Yu-Gi-Oh Average Set Trend:\n")
 
-    #         row = f'{year:<{year_widths}} | {pokemon_total_cards:<{column_widths}} | {pokemon_sets:<{column_widths}} | {yugioh_total_cards:<{column_widths}} | {yugioh_sets:<{column_widths}} |'
-    #         f.write(row + "\n")
-       
-    # pass
+            if pokemon_recent_avg > pokemon_early_avg: 
+                pokemon_growth = ((pokemon_recent_avg - pokemon_early_avg) / pokemon_early_avg) * 100 
+                f.write(f" Pokemon sets grew by {pokemon_growth:.1f}% (from {pokemon_early_avg:.1f} to {pokemon_recent_avg:.1f} cards per set)\n")
+            else:
+                pokemon_recent_decline = ((pokemon_early_avg - pokemon_recent_avg) / pokemon_early_avg) * 100
+                f.write(f" Pokemon sets declined by {pokemon_recent_decline:.1f}% (from {pokemon_early_avg:.1f} to {pokemon_recent_avg:.1f} cards per set)\n")
 
-
-
-        # f.write("-" * 30 + "\n\n")
-        # f.write("Pokemon Calculation Results:\n\n")
-        # f.write("-" * 30 + "\n\n")
-
-        # f.write("Pokemon Cards Released Per Year:\n\n")
-        # f.write("-" * 30 + "\n\n")
-
-        # for year in sorted(pokemon_total_cards.keys()):
-        #     f.write(f'{year}: {pokemon_total_cards[year]}\n')
-        # f.write('\n')
-
-        # f.write("-" * 30 + "\n\n")
-        # f.write("Pokemon Sets Released Per Year:\n")
-        # f.write("-" * 30 + "\n\n")
-
-        # for year in sorted(pokemon_sets.keys()):
-        #     f.write(f'{year}: {pokemon_sets[year]}\n')
-
-        # f.write('\n' + "-" * 30 + '\n\n')
-        # f.write("Yu-Gi-Oh Calculation Results:\n")
-        # f.write('\n' + "-" * 30 + '\n\n')
-
-        # f.write("Yu-Gi-Oh Cards Released Per Year:\n")
-        # f.write("-" * 30 + "\n")
-
-        # for year in sorted(yugioh_total_cards.keys()):
-        #     f.write(f'{year}: {yugioh_total_cards[year]}\n')
-        # f.write('\n')
-
-        # f.write("Yu-Gi-Oh Sets Released Per Year:\n")
-        # f.write("-" * 30 + "\n")
-
-        # for year in sorted(yugioh_sets.keys()):
-        #     f.write(f'{year}: {yugioh_sets[year]}\n')
-
-    print(f"Yu-Gi-Oh & PokemonCalculation results written to {filename}")
+            if yugioh_recent_avg > 0: 
+                if yugioh_recent_avg > yugioh_early_avg:
+                    yugioh_growth = ((yugioh_recent_avg - yugioh_early_avg) / yugioh_early_avg) * 100
+                    f.write(f" Yu-Gi-Oh sets grew by {yugioh_growth:.1f}% (from {yugioh_early_avg:.1f} to {yugioh_recent_avg:.1f} cards per set)\n")
+                else:
+                    yugioh_decline = ((yugioh_early_avg - yugioh_recent_avg) / yugioh_early_avg) * 100
+                    f.write(f" Yu-Gi-Oh sets declined by {yugioh_decline:.1f}% (from {yugioh_early_avg:.1f} to {yugioh_recent_avg:.1f} cards/set\n")
+            f.write("\n" + "=" * 100 + "\n")
+    conn.close()
+    print(f"Calculation results written to a {filename}")
 
 def main():
     # Look back on Discussion for to have the full path to the database file.
 
     conn = sqlite3.connect('tcg_data.db')
 
+    # Calculate individual card
     pokemon_total_per_year = calculate_pokemon_total_per_year(conn)
-    create_pokemon_histogram(pokemon_total_per_year, "Total Pokemon Cards Released Per Year", "Year", "Total Cards Released Per Year")
+    create_pokemon_histogram(pokemon_total_per_year, "Total Pokemon Cards Released Per Year", "Year", "Total Cards Released")
     pokemon_sets_per_year = calculate_pokemon_sets_per_year(conn)
-    create_pokemon_histogram(pokemon_sets_per_year, "Total Pokemon Sets Released Per Year", "Year", "Total Sets Released")
+    create_pokemon_histogram(pokemon_sets_per_year, "Total Pokemon Sets Released Per Year", "Year", "Total Sets Released Per Year")
+    print(f"Pokemon {sum(pokemon_total_per_year.values())} cards, {sum(pokemon_sets_per_year.values())} sets")
 
     yugioh_total_per_year = calculate_yugioh_total_per_year(conn)
     create_yugioh_histogram(yugioh_total_per_year, "Total Yu-Gi-Oh Cards Released Per Year", "Year", "Total Cards Released")
     yugioh_sets_per_year = calculate_yugioh_sets_per_year(conn)
-    create_yugioh_histogram(yugioh_sets_per_year, "Total Yu-Gi-Oh Sets Released Per Year", "Year", "Total Sets Released")
+    create_yugioh_histogram(yugioh_sets_per_year, "Total Yu-Gi-Oh Sets Released Per Year", "Year", "Total Sets Released Per Year")
+    print(f"Yu-Gi-Oh {sum(yugioh_total_per_year.values())} cards, {sum(yugioh_sets_per_year.values())} sets")
     
-    write_calculation_to_file(pokemon_total_per_year, pokemon_sets_per_year, yugioh_total_per_year, yugioh_sets_per_year)
-    
+    # Now here we do a JOIN calculation.
+    combined_data, pokemon_data, yugioh_data = joining_tables(conn) 
+    create_combined_histogram(pokemon_data, yugioh_data, combined_data)
+
+    # Next will be the Avg.
+
+    pokemon_average, yugioh_average = calculate_average_cards_per_set(conn)
+    create_average_sets_line_chart(pokemon_average, yugioh_average)
+
+    write_calculation_to_file(conn, pokemon_total_per_year, pokemon_sets_per_year, yugioh_total_per_year, yugioh_sets_per_year)
+    # write_calculation_to_file(pokemon_total_per_year, pokemon_sets_per_year, yugioh_total_per_year, yugioh_sets_per_year)
     conn.close()
 
 if __name__ == "__main__":
