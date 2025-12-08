@@ -162,9 +162,6 @@ def calculate_yugioh_sets_per_year(conn):
             year_counts[year] += count
     return dict(year_counts)
 
-
-    #THIS PART WOULD BE THE HISOTOGRAM PART FOR YU-GI-OH
-
 def create_yugioh_histogram(data, title, xlabel, ylabel):
     """
     Create a histogram to visualize the the data for Yu-Gi-Oh
