@@ -1,10 +1,4 @@
-#Calculation in one file: 
-
-#Brandon will be working on it this: 
-
-#Double check this file task is for Brandon's "calculation"
-
-#combining both pokemon and yugioh calculation into one file as a final calculation file. Then we delete those files. 
+# Brandon Reyes Parra
 
 import sqlite3
 from collections import defaultdict
@@ -222,15 +216,15 @@ def create_combined_histogram(pokemon_data, yugioh_data, combined_data):
 
     pokemon_values = [pokemon_data.get(year, 0) for year in all_years]
     yugioh_values= [yugioh_data.get(year, 0) for year in all_years]
-    combined_values = [combined_data.get(year, 0) for year in all_years]
+    #combined_values = [combined_data.get(year, 0) for year in all_years]
 
     fig, ax = plt.subplots()
     x = np.arange(len(all_years))
     width = 0.25
 
-    bars1 = ax.bar(x - width, pokemon_values, width, label='Pokemon', color='blue', edgecolor='black', linewidth=1.5)
+    bars1 = ax.bar(x - width, pokemon_values, width, label='Pokemon', color='skyblue', edgecolor='black', linewidth=1.5)
     bars2 = ax.bar(x, yugioh_values, width, label='Yu-Gi-Oh', color='red', edgecolor='black', linewidth=1.5)
-    bars3 = ax.bar(x + width, combined_values, width, label='Combined', color='yellow', edgecolor='black', linewidth=1.5)
+    #bars3 = ax.bar(x + width, combined_values, width, label='Combined', color='yellow', edgecolor='black', linewidth=1.5)
 
     ax.set_xlabel('Year', fontsize=13, fontweight='bold')
     ax.set_ylabel('Total Cards Released', fontsize=13, fontweight='bold')
