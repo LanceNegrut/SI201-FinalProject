@@ -174,7 +174,7 @@ def create_yugioh_histogram(data, title, xlabel, ylabel):
 
 
     plt.figure(figsize=(10, 6))
-    plt.bar(years, counts, color="skyblue", edgecolor="black", linewidth=1.5)
+    plt.bar(years, counts, color="lightcoral", edgecolor="black", linewidth=1.5)
     #plt.bar(years, counts)
     plt.title(title, fontsize=14, fontweight='bold')
     plt.xlabel(xlabel, fontsize=12)
@@ -223,7 +223,7 @@ def create_combined_histogram(pokemon_data, yugioh_data, combined_data):
     width = 0.25
 
     bars1 = ax.bar(x - width, pokemon_values, width, label='Pokemon', color='skyblue', edgecolor='black', linewidth=1.5)
-    bars2 = ax.bar(x, yugioh_values, width, label='Yu-Gi-Oh', color='red', edgecolor='black', linewidth=1.5)
+    bars2 = ax.bar(x, yugioh_values, width, label='Yu-Gi-Oh', color='lightcoral', edgecolor='black', linewidth=1.5)
     #bars3 = ax.bar(x + width, combined_values, width, label='Combined', color='yellow', edgecolor='black', linewidth=1.5)
 
     ax.set_xlabel('Year', fontsize=13, fontweight='bold')
@@ -283,13 +283,13 @@ def create_average_sets_line_chart(pokemon_average, yugioh_average):
     
     # make sure here we use the line correctly. 
 
-    plt.plot(all_years, pokemon_values, marker='o', linewidth=2, markersize=6, label='Pokemon Avg Set Size', color='blue', linestyle='-') # pokemon line
+    plt.plot(all_years, pokemon_values, marker='o', linewidth=2, markersize=6, label='Pokemon Avg Set Size', color='skyblue', linestyle='-') # pokemon line
         
-    plt.plot(all_years, yugioh_values, marker='s', linewidth=2, markersize=6, label='Yu-Gi-Oh Avg Set Size', color='yellow', linestyle='-') # yugioh line
+    plt.plot(all_years, yugioh_values, marker='s', linewidth=2, markersize=6, label='Yu-Gi-Oh Avg Set Size', color='lightcoral', linestyle='-') # yugioh line
 
 
     plt.xlabel('Year', fontsize=13, fontweight='bold')
-    plt.ylabel('Ave Cards Per Set', fontsize=13, fontweight='bold')
+    plt.ylabel('Avg Cards Per Set', fontsize=13, fontweight='bold')
     plt.legend(fontsize=12, loc='best')
     plt.grid(True, alpha=0.3, linestyle='--')
     plt.xticks(rotation=45, ha='right')
