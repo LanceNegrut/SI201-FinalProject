@@ -349,7 +349,7 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
 
         f.write("=" * 100 + "\n")
         f.write("Section 2: Average cards per set for early and recent 5 years:\n")
-        f.write("Functions Generated Table: calculating average cards per set for both TCGs\n")
+        f.write("Summary: Average set sizes for start and end periods\n")
         f.write("=" * 100 + "\n")
 
         f.write("Early Years first 5 years:\n")
@@ -373,7 +373,7 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
       
         f.write("=" * 100 + "\n")
         f.write("Section 3: Demonstrating Growth Trends based on the average set size over time:\n")
-        f.write("Functions Generated Table: \n")
+        f.write("Summary: Analysis Growth\n")
         f.write("=" * 100 + "\n")
         
 
