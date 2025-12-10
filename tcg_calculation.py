@@ -334,7 +334,7 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
         column_widths = 12
         year_widths = 6
 
-        header = f'{"Year":<{year_widths}} | {"Pokemon Cards":<{column_widths}} | {"Pokemon Sets":>{column_widths}} | {"Yu-Gi-Oh Card":<{column_widths}} | {"Yu-Gi-Oh Sets":<{column_widths}}'
+        header = f'{"Year":<{year_widths}} | {"Pokemon Cards":<{column_widths}} | {"Pokemon Sets":>{column_widths}} | {"Yu-Gi-Oh Cards":<{column_widths}} | {"Yu-Gi-Oh Sets":<{column_widths}}'
         f.write(header + "\n")
         f.write("=" * 100 + "\n")
 
