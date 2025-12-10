@@ -347,10 +347,10 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
             row = f'{year:<{year_widths}} | {poke_cards_total:<{column_widths}} | {poke_sets_total:<{column_widths}} | {yugioh_cards_total:<{column_widths}} | {yugioh_sets_total:<{column_widths}}'
             f.write(row + "\n")
 
-        f.write("-" * 100 + "\n")
+        f.write("=" * 100 + "\n")
         f.write("Section 2: Average cards per set for early and recent 5 years:\n")
         f.write("Functions Generated Table: calculating average cards per set for both TCGs\n")
-        f.write("-" * 100 + "\n")
+        f.write("=" * 100 + "\n")
 
         f.write("Early Years first 5 years:\n")
         early_years = sorted(pokemon_average.keys())[:5]
@@ -371,10 +371,10 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
     # Here will be where we will analyze the growth trends.
 
       
-        f.write("-" * 100 + "\n")
+        f.write("=" * 100 + "\n")
         f.write("Section 3: Demonstrating Growth Trends based on the average set size over time:\n")
         f.write("Functions Generated Table: \n")
-        f.write("-" * 100 + "\n")
+        f.write("=" * 100 + "\n")
         
 
         if early_years and recent_years:
