@@ -1,5 +1,5 @@
 # Brandon Reyes Parra
-# Testing
+
 
 import sqlite3
 from collections import defaultdict
@@ -230,6 +230,8 @@ def create_combined_histogram(pokemon_data, yugioh_data, combined_data):
     ax.set_xlabel('Year', fontsize=13, fontweight='bold')
     ax.set_ylabel('Total Cards Released', fontsize=13, fontweight='bold')
     ax.set_title('TCG Production Trends: Pokemon vs Yu-Gi-Oh Over the Years', fontsize=16, fontweight='bold')
+    
+    ax.yaxis.grid(True, linestyle='--', alpha=0.7, zorder=0)
 
     ax.set_xticks(x)
     ax.set_xticklabels(all_years, rotation=45, ha='right')
