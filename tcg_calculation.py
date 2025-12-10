@@ -324,7 +324,8 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
         all_years = set(pokemon_total_cards.keys()) | set(pokemon_sets.keys()) | set(yugioh_total_cards.keys()) | set(yugioh_sets.keys()) 
         sorted_years = sorted(list(all_years))
 
-        f.write("Pokemon & Yu-Gi-Oh Calculation Results Combined:\n")
+        f.write("Section 1:Pokemon & Yu-Gi-Oh Calculation Results:\n")
+        f.write("Functions Generated Table: calculating total cards and sets released per year\n")
         f.write("=" * 100 + "\n")
 
         column_widths = 12
@@ -345,8 +346,12 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
 
         f.write("-" * 100 + "\n\n")
 
-        f.write("Average Cards per Set Over a specific time period:\n")
+        f.write("Section 2: Average Cards per Set Over a specific time period:\n")
+        f.write("Functions Generated Table: calculating average cards per set for both TCGs\n")
         f.write("-" * 100 + "\n")
+
+        f.write("Section 3: Trend Analysis of Average Set Sizes:\n")
+        f.write("Functions Generated Analysis: Analyzing growth trends based on average set size over time first and last 5 years.\n")
 
         f.write("Early Years first 5 years:\n")
         early_years = sorted(pokemon_average.keys())[:5]
