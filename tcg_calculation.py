@@ -348,8 +348,8 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
             f.write(row + "\n")
 
         f.write("=" * 100 + "\n")
-        f.write("Section 2: Average cards per set for early and recent 5 years:\n")
-        f.write("Summary: Average set sizes for start and end periods\n")
+        f.write("Section 2: Average cards per set for all years:\n")
+        header = f'{"Year":<{year_widths}} | {"Pokemon Avg":<{column_widths}} | {"Yu-Gi-Oh Avg":<{column_widths}}'
         f.write("=" * 100 + "\n")
 
         for year in sorted_years:
@@ -370,7 +370,7 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
             pokemon_recent_avg = sum(pokemon_average[year] for year in recent_years_poke) / len(recent_years_poke)
             yugioh_early_avg = sum(yugioh_average[year] for year in early_years_yugio) / len(early_years_yugio)
             yugioh_recent_avg = sum(yugioh_average[year] for year in recent_years_yugio) / len(recent_years_yugio)
-
+        f.write("=" * 100 + "\n")
         if pokemon_early_avg > 0:
             if pokemon_recent_avg > pokemon_early_avg:
                 pokemon_growth = ((pokemon_recent_avg - pokemon_early_avg) / pokemon_early_avg) * 100 
@@ -385,6 +385,7 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
                 else:
                     yugioh_decline = ((yugioh_early_avg - yugioh_recent_avg) / yugioh_early_avg) * 100
                     f.write(f"Yu-Gi-Oh sets declined by {yugioh_decline:.1f}% (from {yugioh_early_avg:.1f} to {yugioh_recent_avg:.1f} cards/set\n")
+        f.write("=" * 100 + "\n")
     conn.close()
     print(f"Calculation results written to a {filename}")
 
