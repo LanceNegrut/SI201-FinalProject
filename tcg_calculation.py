@@ -30,8 +30,6 @@ def calculate_pokemon_total_per_year(conn):
     
     results = cursor.fetchall()
     
-    # This would be the results into year-based dictionary (example from Discussion 12)
-    # Updating to sum total per year 
     year_counts = defaultdict(int)
     for date_str, total in results:
         if date_str and total is not None:  # Make sure date exists
@@ -67,8 +65,6 @@ def calculate_pokemon_sets_per_year(conn):
             year_counts[year] += count
     return dict(year_counts)
 
-# Create a bar chart to visualize the data 
-
 def create_pokemon_histogram(data, title, xlabel, ylabel):
     """
     Create a histogram to visualize the the data for Pokemon
@@ -83,8 +79,6 @@ def create_pokemon_histogram(data, title, xlabel, ylabel):
     
     years = sorted(data.keys())
     counts = [data[year] for year in years] #this is data values by year 
-    #counts = list(data.values())
-
 
     plt.figure(figsize=(10, 6))
     plt.bar(years, counts, color="skyblue", edgecolor="black", linewidth=1.5)
@@ -109,8 +103,6 @@ def calculate_yugioh_total_per_year(conn):
     """
     cursor = conn.cursor()
     
-    #the two tables need to be joined in order to get the releasedate. 
-
     cursor.execute("""
         SELECT rd.tcg_date, SUM(ps.num_of_cards)
         FROM "Yu-Gi-Oh Release Dates" rd
@@ -120,8 +112,6 @@ def calculate_yugioh_total_per_year(conn):
     
     results = cursor.fetchall()
     
-    # This would be the results into year-based dictionary (example from Discussion 12)
-    # Updating to sum total per year 
     year_counts = defaultdict(int)
     for date_str, total in results:
         if date_str and total is not None:  # Make sure date exists
@@ -171,7 +161,6 @@ def create_yugioh_histogram(data, title, xlabel, ylabel):
     
     years = sorted(data.keys())
     counts = [data[year] for year in years] #this is data values by year 
-    #counts = list(data.values())
 
 
     plt.figure(figsize=(10, 6))
@@ -283,8 +272,6 @@ def create_average_sets_line_chart(pokemon_average, yugioh_average):
 
     plt.figure(figsize=(10, 6))
     
-    # make sure here we use the line correctly. 
-
     plt.plot(all_years, pokemon_values, marker='o', linewidth=2, markersize=6, label='Pokemon Avg Set Size', color='skyblue', linestyle='-') # pokemon line
         
     plt.plot(all_years, yugioh_values, marker='s', linewidth=2, markersize=6, label='Yu-Gi-Oh Avg Set Size', color='lightcoral', linestyle='-') # yugioh line
@@ -299,7 +286,6 @@ def create_average_sets_line_chart(pokemon_average, yugioh_average):
     plt.show()
 
 def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_total_cards, yugioh_sets, filename='All_calculation.txt'):
-    # Rubric write calculation result to a text file:
 
     """
     Write calculated on result to a text file with both Pokemon and Yu-Gi-Oh data
@@ -317,8 +303,6 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
     
     #I'm doing an Update here to have similar structure but adding more to it.
     """
-
-    # Doing a different way to get all the calculations because now we have the average part too.
 
     pokemon_average, yugioh_average = calculate_average_cards_per_set(conn)
 
@@ -396,8 +380,6 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
     print(f"Calculation results written to a {filename}")
 
 def main():
-    # Look back on Discussion for to have the full path to the database file.
-
     conn = sqlite3.connect('tcg_data.db')
 
     # Calculate individual card
@@ -418,7 +400,6 @@ def main():
     create_combined_histogram(pokemon_data, yugioh_data, combined_data)
 
     # Next will be the Avg.
-
     pokemon_average, yugioh_average = calculate_average_cards_per_set(conn)
     create_average_sets_line_chart(pokemon_average, yugioh_average)
 
