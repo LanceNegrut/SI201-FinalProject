@@ -355,7 +355,7 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
         for year in sorted_years:
             pokemon_avg = pokemon_average.get(year, 0)
             yugioh_avg = yugioh_average.get(year, 0)
-            f.write(f'{year}: Pokemon Avg = {pokemon_avg}, Yu-Gi-Oh = {yugioh_avg}\n')
+            f.write(f'{year}: Pokemon {pokemon_avg}, Yu-Gi-Oh = {yugioh_avg}\n')
         poke_years_sorted = sorted(pokemon_average.keys())
         yugio_years_sorted = sorted(yugioh_average.keys())
 
