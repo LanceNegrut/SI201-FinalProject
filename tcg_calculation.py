@@ -351,10 +351,15 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
         f.write("Section 2: Average cards per set for all years:\n")
         f.write("=" * 100 + "\n")
 
+        header_two = f'{"Year":<{year_widths}} | {"Pokemon Avg":<{column_widths}} | {"Yu-Gi-Oh Avg":<{column_widths}}'
+        f.write(header_two + "\n")
+        f.write("=" * 100 + "\n")
         for year in sorted_years:
             pokemon_avg = pokemon_average.get(year, 0)
             yugioh_avg = yugioh_average.get(year, 0)
-            f.write(f'{year}: Pokemon = {pokemon_avg}, Yu-Gi-Oh = {yugioh_avg}\n')
+            row_two = f'{year:<{year_widths}} | {pokemon_avg:<{column_widths}} | {yugioh_avg:<{column_widths}}'
+            f.write(row_two + "\n")
+
         poke_years_sorted = sorted(pokemon_average.keys())
         yugio_years_sorted = sorted(yugioh_average.keys())
 
@@ -362,6 +367,9 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
         early_years_yugio = yugio_years_sorted[:5]
         recent_years_poke = poke_years_sorted[-5:]
         recent_years_yugio = yugio_years_sorted[-5:]
+
+        f.write("=" * 100 + "\n")
+        f.write("Section 3: Growth Analysis:\n")
 
         if early_years_poke and recent_years_poke and early_years_yugio and recent_years_yugio:
             
