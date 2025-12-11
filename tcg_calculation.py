@@ -349,7 +349,6 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
 
         f.write("=" * 100 + "\n")
         f.write("Section 2: Average cards per set for all years:\n")
-        header = f'{"Year":<{year_widths}} | {"Pokemon Avg":<{column_widths}} | {"Yu-Gi-Oh Avg":<{column_widths}}'
         f.write("=" * 100 + "\n")
 
         for year in sorted_years:
