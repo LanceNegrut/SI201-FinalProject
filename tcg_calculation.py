@@ -378,54 +378,13 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
             else:
                 pokemon_recent_decline = ((pokemon_early_avg - pokemon_recent_avg) / pokemon_early_avg) * 100
                 f.write(f"Pokemon sets declined by {pokemon_recent_decline:.1f}% (from {pokemon_early_avg:.1f} to {pokemon_recent_avg:.1f} cards per set)\n")
-
-
-
-    #     f.write("Early Years first 5 years:\n")
-    #     #early_years = sorted(pokemon_average.keys())[:5]
-    #     early_years = sorted(pokemon_average.keys())[:5]
-
-
-    #     for year in early_years:
-    #         pokemon_avg = pokemon_average.get(year, 0)
-    #         yugioh_avg = yugioh_average.get(year, 0)
-    #         f.write(f'{year}: Pokemon = {pokemon_avg}, Yu-Gi-Oh = {yugioh_avg}\n')
-
-    #     f.write("Recent Years last 5 years:\n")
-    #     recent_years = sorted(pokemon_average.keys())[-5:]
-
-    #     for year in recent_years:
-    #         pokemon_avg = pokemon_average.get(year, 0)
-    #         yugioh_avg = yugioh_average.get(year, 0)
-    #         f.write(f'{year}: Pokemon = {pokemon_avg}, Yu-Gi-Oh = {yugioh_avg}\n')
-
-    # # Here will be where we will analyze the growth trends.
-
-        
-
-    #     if early_years and recent_years:
-    #         pokemon_early_avg = sum(pokemon_average.get(year, 0) for year in early_years) / len(early_years)
-    #         pokemon_recent_avg = sum(pokemon_average.get(year, 0) for year in recent_years) / len(recent_years)
-    #         yugioh_early_avg = sum(yugioh_average.get(year, 0) for year in early_years) / len(early_years)
-    #         yugioh_recent_avg = sum(yugioh_average.get(year, 0) for year in recent_years) / len(recent_years)
-
-    #         f.write(f"Pokemon & Yu-Gi-Oh Average Set Trend:\n")
-
-    #         if pokemon_recent_avg > pokemon_early_avg: 
-    #             pokemon_growth = ((pokemon_recent_avg - pokemon_early_avg) / pokemon_early_avg) * 100 
-    #             f.write(f"Pokemon sets grew by {pokemon_growth:.1f}% (from {pokemon_early_avg:.1f} to {pokemon_recent_avg:.1f} cards per set)\n")
-    #         else:
-    #             pokemon_recent_decline = ((pokemon_early_avg - pokemon_recent_avg) / pokemon_early_avg) * 100
-    #             f.write(f"Pokemon sets declined by {pokemon_recent_decline:.1f}% (from {pokemon_early_avg:.1f} to {pokemon_recent_avg:.1f} cards per set)\n")
-
-    #         if yugioh_recent_avg > 0: 
-    #             if yugioh_recent_avg > yugioh_early_avg:
-    #                 yugioh_growth = ((yugioh_recent_avg - yugioh_early_avg) / yugioh_early_avg) * 100
-    #                 f.write(f"Yu-Gi-Oh sets grew by {yugioh_growth:.1f}% (from {yugioh_early_avg:.1f} to {yugioh_recent_avg:.1f} cards per set)\n")
-    #             else:
-    #                 yugioh_decline = ((yugioh_early_avg - yugioh_recent_avg) / yugioh_early_avg) * 100
-    #                 f.write(f"Yu-Gi-Oh sets declined by {yugioh_decline:.1f}% (from {yugioh_early_avg:.1f} to {yugioh_recent_avg:.1f} cards/set\n")
-    #         f.write("=" * 100 + "\n")
+            if yugioh_early_avg > 0:
+                if yugioh_recent_avg > yugioh_early_avg:
+                    yugioh_growth = ((yugioh_recent_avg - yugioh_early_avg) / yugioh_early_avg) * 100
+                    f.write(f"Yu-Gi-Oh sets grew by {yugioh_growth:.1f}% (from {yugioh_early_avg:.1f} to {yugioh_recent_avg:.1f} cards per set)\n")
+                else:
+                    yugioh_decline = ((yugioh_early_avg - yugioh_recent_avg) / yugioh_early_avg) * 100
+                    f.write(f"Yu-Gi-Oh sets declined by {yugioh_decline:.1f}% (from {yugioh_early_avg:.1f} to {yugioh_recent_avg:.1f} cards/set\n")
     conn.close()
     print(f"Calculation results written to a {filename}")
 

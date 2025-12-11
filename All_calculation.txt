@@ -1,0 +1,65 @@
+Section 1:Pokemon & Yu-Gi-Oh Calculation Results:
+Functions Generated Table: calculating total cards and sets released per year
+====================================================================================================
+Year   | Pokemon Cards | Pokemon Sets | Yu-Gi-Oh Cards | Yu-Gi-Oh Sets
+====================================================================================================
+1999   | 281          | 4            | 0            | 0           
+2000   | 588          | 5            | 0            | 0           
+2001   | 159          | 3            | 1            | 1           
+2002   | 397          | 4            | 1860         | 15          
+2003   | 713          | 6            | 1132         | 18          
+2004   | 463          | 7            | 908          | 29          
+2005   | 491          | 5            | 1245         | 36          
+2006   | 463          | 8            | 869          | 62          
+2007   | 584          | 7            | 962          | 59          
+2008   | 492          | 6            | 981          | 53          
+2009   | 550          | 6            | 892          | 44          
+2010   | 439          | 5            | 1239         | 51          
+2011   | 534          | 6            | 1457         | 55          
+2012   | 528          | 6            | 1671         | 50          
+2013   | 760          | 6            | 1536         | 40          
+2014   | 506          | 5            | 1902         | 43          
+2015   | 587          | 6            | 1525         | 40          
+2016   | 613          | 6            | 1570         | 41          
+2017   | 999          | 7            | 1649         | 46          
+2018   | 847          | 6            | 1796         | 56          
+2019   | 1461         | 9            | 2063         | 60          
+2020   | 914          | 6            | 2345         | 59          
+2021   | 1207         | 9            | 1723         | 41          
+2022   | 1057         | 10           | 2279         | 30          
+2023   | 1674         | 9            | 1926         | 32          
+2024   | 1215         | 6            | 1889         | 24          
+2025   | 1277         | 7            | 1650         | 21          
+====================================================================================================
+Section 2: Average cards per set for early and recent 5 years:
+Summary: Average set sizes for start and end periods
+====================================================================================================
+1999: Pokemon Avg = 70.2, Yu-Gi-Oh = 0
+2000: Pokemon Avg = 117.6, Yu-Gi-Oh = 0
+2001: Pokemon Avg = 53.0, Yu-Gi-Oh = 1.0
+2002: Pokemon Avg = 99.2, Yu-Gi-Oh = 124.0
+2003: Pokemon Avg = 118.8, Yu-Gi-Oh = 62.9
+2004: Pokemon Avg = 66.1, Yu-Gi-Oh = 31.3
+2005: Pokemon Avg = 98.2, Yu-Gi-Oh = 34.6
+2006: Pokemon Avg = 57.9, Yu-Gi-Oh = 14.0
+2007: Pokemon Avg = 83.4, Yu-Gi-Oh = 16.3
+2008: Pokemon Avg = 82.0, Yu-Gi-Oh = 18.5
+2009: Pokemon Avg = 91.7, Yu-Gi-Oh = 20.3
+2010: Pokemon Avg = 87.8, Yu-Gi-Oh = 24.3
+2011: Pokemon Avg = 89.0, Yu-Gi-Oh = 26.5
+2012: Pokemon Avg = 88.0, Yu-Gi-Oh = 33.4
+2013: Pokemon Avg = 126.7, Yu-Gi-Oh = 38.4
+2014: Pokemon Avg = 101.2, Yu-Gi-Oh = 44.2
+2015: Pokemon Avg = 97.8, Yu-Gi-Oh = 38.1
+2016: Pokemon Avg = 102.2, Yu-Gi-Oh = 38.3
+2017: Pokemon Avg = 142.7, Yu-Gi-Oh = 35.8
+2018: Pokemon Avg = 141.2, Yu-Gi-Oh = 32.1
+2019: Pokemon Avg = 162.3, Yu-Gi-Oh = 34.4
+2020: Pokemon Avg = 152.3, Yu-Gi-Oh = 39.7
+2021: Pokemon Avg = 134.1, Yu-Gi-Oh = 42.0
+2022: Pokemon Avg = 105.7, Yu-Gi-Oh = 76.0
+2023: Pokemon Avg = 186.0, Yu-Gi-Oh = 60.2
+2024: Pokemon Avg = 202.5, Yu-Gi-Oh = 78.7
+2025: Pokemon Avg = 182.4, Yu-Gi-Oh = 78.6
+Pokemon sets grew by 76.7% (from 91.8 to 162.1 cards per set)
+Yu-Gi-Oh sets grew by 32.2% (from 50.8 to 67.1 cards per set)
