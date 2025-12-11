@@ -93,7 +93,7 @@ def create_pokemon_histogram(data, title, xlabel, ylabel):
     plt.xlabel(xlabel, fontsize=12)
     plt.ylabel(ylabel, fontsize=12)
     plt.xticks(rotation=45, ha="right")
-    plt.grid(axis='y', alpha=0.75)
+    plt.grid(axis='y', alpha=0.75, linestyle='--')
     plt.tight_layout()
     plt.show()
 
@@ -176,12 +176,11 @@ def create_yugioh_histogram(data, title, xlabel, ylabel):
 
     plt.figure(figsize=(10, 6))
     plt.bar(years, counts, color="lightcoral", edgecolor="black", linewidth=1.5)
-    #plt.bar(years, counts)
     plt.title(title, fontsize=14, fontweight='bold')
     plt.xlabel(xlabel, fontsize=12)
     plt.ylabel(ylabel, fontsize=12)
     plt.xticks(rotation=45, ha="right")
-    plt.grid(axis='y', alpha=0.75)
+    plt.grid(axis='y', alpha=0.75, linestyle='--')
     plt.tight_layout()
     plt.show()
 
@@ -217,15 +216,15 @@ def create_combined_histogram(pokemon_data, yugioh_data, combined_data):
 
     pokemon_values = [pokemon_data.get(year, 0) for year in all_years]
     yugioh_values= [yugioh_data.get(year, 0) for year in all_years]
-    #combined_values = [combined_data.get(year, 0) for year in all_years]
+
 
     fig, ax = plt.subplots()
+    fig.set_size_inches(10, 6)
     x = np.arange(len(all_years))
     width = 0.25
 
     bars1 = ax.bar(x - width, pokemon_values, width, label='Pokemon', color='skyblue', edgecolor='black', linewidth=1.5)
     bars2 = ax.bar(x, yugioh_values, width, label='Yu-Gi-Oh', color='lightcoral', edgecolor='black', linewidth=1.5)
-    #bars3 = ax.bar(x + width, combined_values, width, label='Combined', color='yellow', edgecolor='black', linewidth=1.5)
 
     ax.set_xlabel('Year', fontsize=13, fontweight='bold')
     ax.set_ylabel('Total Cards Released', fontsize=13, fontweight='bold')
@@ -282,7 +281,7 @@ def create_average_sets_line_chart(pokemon_average, yugioh_average):
     pokemon_values = [pokemon_average.get(year, 0) for year in all_years]
     yugioh_values = [yugioh_average.get(year, 0) for year in all_years]
 
-    plt.figure(figsize=(10, 7))
+    plt.figure(figsize=(10, 6))
     
     # make sure here we use the line correctly. 
 
