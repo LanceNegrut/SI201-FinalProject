@@ -33,6 +33,7 @@ Year   | Pokemon Cards | Pokemon Sets | Yu-Gi-Oh Cards | Yu-Gi-Oh Sets
 ====================================================================================================
 Section 2: Average cards per set for all years:
 ====================================================================================================
+<<<<<<< HEAD
 Year   | Pokemon Avg  | Yu-Gi-Oh Avg
 ====================================================================================================
 1999   | 70.2         | 0           
@@ -64,6 +65,35 @@ Year   | Pokemon Avg  | Yu-Gi-Oh Avg
 2025   | 182.4        | 78.6        
 ====================================================================================================
 Section 3: Growth Analysis:
+=======
+1999: Pokemon = 70.2, Yu-Gi-Oh = 0
+2000: Pokemon = 117.6, Yu-Gi-Oh = 0
+2001: Pokemon = 53.0, Yu-Gi-Oh = 1.0
+2002: Pokemon = 99.2, Yu-Gi-Oh = 124.0
+2003: Pokemon = 118.8, Yu-Gi-Oh = 62.9
+2004: Pokemon = 66.1, Yu-Gi-Oh = 31.3
+2005: Pokemon = 98.2, Yu-Gi-Oh = 34.6
+2006: Pokemon = 57.9, Yu-Gi-Oh = 14.0
+2007: Pokemon = 83.4, Yu-Gi-Oh = 16.3
+2008: Pokemon = 82.0, Yu-Gi-Oh = 18.5
+2009: Pokemon = 91.7, Yu-Gi-Oh = 20.3
+2010: Pokemon = 87.8, Yu-Gi-Oh = 24.3
+2011: Pokemon = 89.0, Yu-Gi-Oh = 26.5
+2012: Pokemon = 88.0, Yu-Gi-Oh = 33.4
+2013: Pokemon = 126.7, Yu-Gi-Oh = 38.4
+2014: Pokemon = 101.2, Yu-Gi-Oh = 44.2
+2015: Pokemon = 97.8, Yu-Gi-Oh = 38.1
+2016: Pokemon = 102.2, Yu-Gi-Oh = 38.3
+2017: Pokemon = 142.7, Yu-Gi-Oh = 35.8
+2018: Pokemon = 141.2, Yu-Gi-Oh = 32.1
+2019: Pokemon = 162.3, Yu-Gi-Oh = 34.4
+2020: Pokemon = 152.3, Yu-Gi-Oh = 39.7
+2021: Pokemon = 134.1, Yu-Gi-Oh = 42.0
+2022: Pokemon = 105.7, Yu-Gi-Oh = 76.0
+2023: Pokemon = 186.0, Yu-Gi-Oh = 60.2
+2024: Pokemon = 202.5, Yu-Gi-Oh = 78.7
+2025: Pokemon = 182.4, Yu-Gi-Oh = 78.6
+>>>>>>> 33ff6f713daeb857767d895708788ef0aa2b7a9d
 ====================================================================================================
 Pokemon sets grew by 76.7% (from 91.8 to 162.1 cards per set)
 Yu-Gi-Oh sets grew by 32.2% (from 50.8 to 67.1 cards per set)
