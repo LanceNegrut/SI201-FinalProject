@@ -18,9 +18,6 @@ def calculate_pokemon_total_per_year(conn):
         dict: {year: total_cards} - total cards released per year
     """
     cursor = conn.cursor()
-    
-    #the two tables need to be joined in order to get the releasedate. 
-
     cursor.execute("""
         SELECT rd.releaseDate, SUM(ps.total)
         FROM "Pokemon Release Dates" rd
@@ -32,8 +29,8 @@ def calculate_pokemon_total_per_year(conn):
     
     year_counts = defaultdict(int)
     for date_str, total in results:
-        if date_str and total is not None:  # Make sure date exists
-            year = date_str.split('/')[0]# Extract year from date
+        if date_str and total is not None: 
+            year = date_str.split('/')[0]
             year_counts[year] += total
     
     return dict(year_counts)
@@ -78,11 +75,10 @@ def create_pokemon_histogram(data, title, xlabel, ylabel):
     """
     
     years = sorted(data.keys())
-    counts = [data[year] for year in years] #this is data values by year 
+    counts = [data[year] for year in years]
 
     plt.figure(figsize=(10, 6))
     plt.bar(years, counts, color="skyblue", edgecolor="black", linewidth=1.5)
-    #plt.bar(years, counts)
     plt.title(title, fontsize=14, fontweight='bold')
     plt.xlabel(xlabel, fontsize=12)
     plt.ylabel(ylabel, fontsize=12)
@@ -114,8 +110,8 @@ def calculate_yugioh_total_per_year(conn):
     
     year_counts = defaultdict(int)
     for date_str, total in results:
-        if date_str and total is not None:  # Make sure date exists
-            year = date_str.split('-')[0]# Extract year from date
+        if date_str and total is not None:  
+            year = date_str.split('-')[0]
             year_counts[year] += total
     
     return dict(year_counts)
@@ -160,7 +156,7 @@ def create_yugioh_histogram(data, title, xlabel, ylabel):
     """
     
     years = sorted(data.keys())
-    counts = [data[year] for year in years] #this is data values by year 
+    counts = [data[year] for year in years] 
 
 
     plt.figure(figsize=(10, 6))
@@ -382,7 +378,6 @@ def write_calculation_to_file(conn, pokemon_total_cards, pokemon_sets, yugioh_to
 def main():
     conn = sqlite3.connect('tcg_data.db')
 
-    # Calculate individual card
     pokemon_total_per_year = calculate_pokemon_total_per_year(conn)
     create_pokemon_histogram(pokemon_total_per_year, "Total Pokemon Cards Released Per Year", "Year", "Total Cards Released")
     pokemon_sets_per_year = calculate_pokemon_sets_per_year(conn)
@@ -395,16 +390,13 @@ def main():
     create_yugioh_histogram(yugioh_sets_per_year, "Total Yu-Gi-Oh Sets Released Per Year", "Year", "Total Sets Released Per Year")
     print(f"Yu-Gi-Oh {sum(yugioh_total_per_year.values())} cards, {sum(yugioh_sets_per_year.values())} sets")
     
-    # Now here we do a JOIN calculation.
     combined_data, pokemon_data, yugioh_data = joining_tables(conn) 
     create_combined_histogram(pokemon_data, yugioh_data, combined_data)
 
-    # Next will be the Avg.
     pokemon_average, yugioh_average = calculate_average_cards_per_set(conn)
     create_average_sets_line_chart(pokemon_average, yugioh_average)
 
     write_calculation_to_file(conn, pokemon_total_per_year, pokemon_sets_per_year, yugioh_total_per_year, yugioh_sets_per_year)
-    # write_calculation_to_file(pokemon_total_per_year, pokemon_sets_per_year, yugioh_total_per_year, yugioh_sets_per_year)
     conn.close()
 
 if __name__ == "__main__":
